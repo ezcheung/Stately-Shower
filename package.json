@@ -1,0 +1,8 @@
+{
+  "name": "stately-shower",
+  "version": "1.0.0",
+  "dependencies": {
+    "firebase": "^3.4.1"
+  },
+  "author": "Elliot Cheung"
+}
