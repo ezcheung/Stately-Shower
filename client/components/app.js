@@ -2,6 +2,7 @@ import React from 'react';
 //import firebase from 'firebase';
 
 import {start, end} from '../models/DatabaseAPI';
+import Location from './location.js';
 
 export default class App extends React.Component{
   
@@ -37,11 +38,9 @@ export default class App extends React.Component{
   locations(){
     let locs = [];
     for(let i = 0; i < this.state.locations.length; i++) {
-      
+      locs.push(<Location loc={this.state.locations[i]}/>);
     }
-    return (
-      <div>Hello</div> 
-    )
+    return locs;
   }
 
   authenticateView(){

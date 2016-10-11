@@ -2,15 +2,15 @@
 
 let db = firebase.database();
 //let auth = firebase.auth();
-
-//let user = firebase.auth().currentUser
-
+let user = firebase.auth().currentUser;
+user = {name: user.displayName, uid: user.uid};
 /**
 * @param {string} location 
 */
 
 export function start(location) {
-  db.ref(`${location}`).set({
+  console.log("Starting " + location + " for " + user.name);
+  return db.ref(`${location}`).set({
     occupied: true,
     user: user
   })
