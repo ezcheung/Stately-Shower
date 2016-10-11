@@ -38,7 +38,7 @@ export default class App extends React.Component{
   locations(){
     let locs = [];
     for(let i = 0; i < this.state.locations.length; i++) {
-      locs.push(<Location loc={this.state.locations[i]}/>);
+      locs.push(<Location loc={this.state.locations[i]} currUser={this.state.currentUser}/>);
     }
     return locs;
   }

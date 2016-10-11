@@ -2,3 +2,16 @@
   border: 1px solid black;
   border-radius: 10px;
 }
+
+.locControls{
+  display: flex;
+  width: 40%;
+}
+
+.occupant{
+  flex: 3;
+}
+
+.btn{
+  flex: 1;
+}

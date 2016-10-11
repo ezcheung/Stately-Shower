@@ -7,11 +7,11 @@ export default class Location extends React.Component {
   constructor(props) {
     super(props);
     let fbUser = firebase.auth().currentUser;
-    this.currentUser = {name: fbUser.displayName, uid: fbUser.uid};
+    this.currentUser = this.props.currUser;
     this.state = {
       location: this.props.loc,
       occupied: false,
-      user: {}
+      inUser: null
     }
     this.dbLoc = firebase.database().ref(`${this.props.loc}`);
   }
@@ -21,21 +21,40 @@ export default class Location extends React.Component {
       console.log("locdata.val: ", locData.val());
       this.setState({
         occupied: locData.val().occupied,
-        user: locData.val().user
+        inUser: locData.val().user
       })
     })
+  }
+
+  buttonSelect() {
+    if(!this.state.inUser) {
+      return (
+        <button className="inBtn btn" onClick={()=> start(this.props.loc)}>
+          In
+        </button>
+      )
+    } else if(this.state.inUser.uid === this.currentUser.uid) {
+      return (
+        <button className="outBtn btn" onClick={()=> end(this.props.loc)}>
+          Out
+        </button>
+      )
+    } else {
+      return null;
+    }
+  }
+
+  occupantDisplay() {
+    
   }
 
   render() {
     return (
       <div className="location">
         <h1>{this.props.loc}</h1>
-        <button className="inBtn" onClick={()=> start(this.props.loc, this.currentUser)}>
-          In
-        </button>
-        <button className="outBtn" onClick={()=> end(this.props.loc)}>
-          Out
-        </button>
+        <div className="locControls">
+          {this.buttonSelect()}
+        </div>
       </div>
     )
   }
