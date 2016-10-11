@@ -2,6 +2,14 @@ body{
   background-image: url('assets/white_tiles.png');
 }
 
+.loginBtn{
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  background-color: rgb(86, 179, 216);
+  color: white;
+}
+
 .location{
   color: rgb(86, 179, 216);
   background-color: white;

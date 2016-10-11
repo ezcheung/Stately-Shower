@@ -19,7 +19,7 @@ export default class Location extends React.Component {
       currentTime: Date.now()
     }
     this.dbLoc = firebase.database().ref(`${this.props.loc}`);
-    setInterval(() => this.setState({currentTime: Date.now()}), 1000);
+    this.counter = setInterval(() => this.setState({currentTime: Date.now()}), 1000);
   }
 
   componentWillMount() {
@@ -30,6 +30,10 @@ export default class Location extends React.Component {
         startTime: locData.val().startTime
       })
     })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.counter);
   }
 
   buttonSelect() {

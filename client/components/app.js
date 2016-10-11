@@ -35,6 +35,17 @@ export default class App extends React.Component{
     })
   }
 
+  signOut() {
+    let _this = this;
+    firebase.auth().signOut()
+    .then(() => {
+
+    })
+    .catch((err) => {
+      console.error("Error logging out: ", err);
+    })
+  }
+
   locations(){
     let locs = [];
     for(let i = 0; i < this.state.locations.length; i++) {
@@ -47,9 +58,16 @@ export default class App extends React.Component{
     var _this = this;
     console.log("This.state.currentUser: ", this.state.currentUser);
     if(this.state.currentUser){
-      return <div>{this.locations()}</div>
+      return (
+        <div>
+        <button className="logoutBtn" onClick={this.signOut.bind(_this)}>
+          Log out
+        </button>
+        {this.locations()}
+        </div>
+      )
     } else {
-      return <button onClick={this.authenticate.bind(_this)}>Log in with Facebook</button>
+      return <button className="loginBtn" onClick={this.authenticate.bind(_this)}>Log in with Facebook</button>
     }
   }
 
