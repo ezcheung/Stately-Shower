@@ -1,17 +1,45 @@
+body{
+  background-image: url('assets/white_tiles.png');
+}
+
 .location{
-  border: 1px solid black;
+  color: rgb(86, 179, 216);
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  border: 2px solid rgb(86, 179, 216);
   border-radius: 10px;
+  padding: 5px;
+  margin-top: 10%;
 }
 
 .locControls{
-  display: flex;
+  display: inline;
   width: 40%;
 }
 
 .occupant{
-  flex: 3;
+  display: inline;
 }
 
 .btn{
-  flex: 1;
+  margin-bottom: 10px;
+  width: 15%;
+  height: 35px;
+}
+
+.inBtn{
+  background-color: rgb(86, 179, 216);
+  color: white;
+}
+
+.outBtn{
+  background-color: rgb(237, 144, 45);
+  color: white;
+}
+
+.duration{
+  display: inline;
+  float: right;
 }

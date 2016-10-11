@@ -2,7 +2,10 @@ import React from 'react';
 //import firebase from 'firebase';
 import {start, end} from '../models/DatabaseAPI.js';
 
+const maxMins = 60;
+
 export default class Location extends React.Component {
+
 
   constructor(props) {
     super(props);
@@ -21,7 +24,6 @@ export default class Location extends React.Component {
 
   componentWillMount() {
     this.dbLoc.on('value', (locData) => {
-      console.log("locdata.val: ", locData.val());
       this.setState({
         occupied: locData.val().occupied,
         inUser: locData.val().user,
@@ -48,8 +50,12 @@ export default class Location extends React.Component {
     }
   }
 
-  formatTimeDiff() {
+  timeSpent() {
     let diff = this.state.currentTime - this.state.startTime;
+    if(diff >= maxMins * 60 * 1000) { //timeCap
+      end(this.props.loc)
+      return null;
+    }
     if(diff <= 0) {
       return "0:00";
     }
@@ -72,7 +78,7 @@ export default class Location extends React.Component {
           {`Occupied by: ${this.state.inUser.name}`}
           </div>
           <div className="duration">
-          {this.formatTimeDiff()}
+          {this.timeSpent()}
           </div>
         </div>
       )
