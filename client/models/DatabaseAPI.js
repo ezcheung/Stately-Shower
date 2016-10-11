@@ -1,9 +1,9 @@
-import firebase from 'firebase';
+// import firebase from 'firebase';
 
 let db = firebase.database();
-let auth = firebase.auth();
+//let auth = firebase.auth();
 
-let user = firebase.auth().currentUser
+//let user = firebase.auth().currentUser
 
 /**
 * @param {string} location 
