@@ -2,12 +2,32 @@ body{
   background-image: url('assets/white_tiles.png');
 }
 
-.loginBtn{
+#app{
+  min-height: 100vh;
+}
+
+.login{
+  display: flex;
   margin-left: auto;
   margin-right: auto;
-  width: 30%;
+  width: 50%;
+  min-height: 50vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.welcome{
+  flex: 3;
+  color: rgb(86, 179, 216);
+  font-size: 3em;
+}
+.loginBtn{
+  flex: 1;
   background-color: rgb(86, 179, 216);
   color: white;
+  height: 15vh;
+  font-size: 1.5em;
 }
 
 .location{

@@ -67,7 +67,12 @@ export default class App extends React.Component{
         </div>
       )
     } else {
-      return <button className="loginBtn" onClick={this.authenticate.bind(_this)}>Log in with Facebook</button>
+      return (
+      <div className="login">
+      <h1 className="welcome">Welcome to Stately Shower!</h1>
+      <button className="loginBtn" onClick={this.authenticate.bind(_this)}>Log in with Facebook</button>
+      </div>
+      )
     }
   }
 
