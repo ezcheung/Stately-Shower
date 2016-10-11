@@ -91,7 +91,9 @@ export default class Location extends React.Component {
 
   render() {
     return (
-      <div className="location">
+      <div className={(this.state.inUser &&
+        this.state.inUser.uid !== this.currentUser.uid) ?
+        "unavailable location" : "location"}>
         <h1>{this.props.loc}</h1>
         <div className="locControls">
           {this.buttonSelect()}

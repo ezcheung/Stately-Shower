@@ -1,5 +1,6 @@
 body{
   background-image: url('assets/white_tiles.png');
+  font-family: 'Lato', sans-serif;
 }
 
 #app{
@@ -16,6 +17,14 @@ body{
   justify-content: center;
   flex-direction: column;
 }
+
+.logoutBtn{
+  height: 35px;
+  width: 100px;
+  background-color: rgb(237, 144, 45);
+  color: white;
+}
+
 
 .welcome{
   flex: 3;
@@ -40,6 +49,10 @@ body{
   border-radius: 10px;
   padding: 5px;
   margin-top: 10%;
+}
+
+.unavailable{
+  background-color: #DDD !important;
 }
 
 .locControls{
