@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "nodemon server/server.js",
-    "build": "browserify client/main.js -o client/public/bundle.js -t [ babelify --presets [es2015 react] ]
-"
+    "build": "browserify client/main.js -o client/public/bundle.js -t [ babelify --presets [es2015 react] ]"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.16.0",

@@ -16,6 +16,7 @@ firebase.auth().onAuthStateChanged((resp) => {
 
 export function start(location) {
   console.log("Starting " + location + " for " + user.name);
+  db.ref(`${location}/request/${user.uid}`).set(false);
   return db.ref(`${location}`).set({
     occupied: true,
     user: user,
@@ -24,9 +25,18 @@ export function start(location) {
 }
 
 export function end(location) {
+  //let current = db.ref(``) // TODO: get current shower, save stats
   db.ref(`${location}`).set({
     occupied: false,
     user: null,
     startTime: null
   })
+}
+
+export function request(location) {
+  db.ref(`${location}/request/${user.uid}`).set(user);
+}
+
+export function clearRequests(location) {
+  db.ref(`${location}/request`).remove();
 }
