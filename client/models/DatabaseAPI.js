@@ -34,5 +34,9 @@ export function end(location) {
 }
 
 export function request(location) {
-  db.ref(`${location}/request/${user.uid}`).set(true);
+  db.ref(`${location}/request/${user.uid}`).set(user);
+}
+
+export function clearRequests(location) {
+  db.ref(`${location}/request`).remove();
 }

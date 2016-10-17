@@ -1,6 +1,6 @@
 import React from 'react';
 //import firebase from 'firebase';
-import {start, end} from '../models/DatabaseAPI.js';
+import {start, end, request, clearRequests} from '../models/DatabaseAPI.js';
 
 const maxMins = 90;
 
@@ -19,18 +19,22 @@ export default class Location extends React.Component {
       currentTime: Date.now(),
       requests: [],
     }
+    // setInterval(() => {console.log("State: ", this.state)}, 3000);
     this.dbLoc = firebase.database().ref(`${this.props.loc}`);
+    clearRequests(this.props.loc);
     this.counter = setInterval(() => this.setState({currentTime: Date.now()}), 1000);
   }
 
   componentWillMount() {
     this.dbLoc.on('value', (locData) => {
+      console.log("LocData: ", locData.val());
       this.setState({
         occupied: locData.val().occupied,
         inUser: locData.val().user,
         startTime: locData.val().startTime,
-        requests: locData.val() // TODO
+        requests: locData.val().request
       })
+      console.log("This.state: ", this.state);
     })
   }
 
@@ -41,7 +45,7 @@ export default class Location extends React.Component {
   buttonSelect() {
     if(!this.state.inUser) {
       return (
-        <button className="inBtn btn" onClick={()=> start(this.props.loc)}>
+        <button className="inBtn btn" onClick={()=> request(this.props.loc)}>
           In
         </button>
       )
@@ -96,11 +100,13 @@ export default class Location extends React.Component {
   }
 
   pendingReqs() {
-    let reqs = [];
-    for (let i = 0; i < this.state.requests.length; i++) {
-      reqs.push(<label className="username">{this.state.requests[i].user.displayName}</label>);
+    if(this.state.requests) {
+      let reqs = [];
+      for (let i in this.state.requests) {
+        reqs.push(<label className="username">{this.state.requests[i].displayName}</label>);
+      }
+      return (<div className="requests">{reqs}</div>);
     }
-    return (<div className="requests">{reqs}</div>);
   }
 
   render() {
