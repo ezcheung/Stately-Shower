@@ -16,7 +16,8 @@ export default class Location extends React.Component {
       occupied: false,
       inUser: null,
       startTime: null,
-      currentTime: Date.now()
+      currentTime: Date.now(),
+      requests: [],
     }
     this.dbLoc = firebase.database().ref(`${this.props.loc}`);
     this.counter = setInterval(() => this.setState({currentTime: Date.now()}), 1000);
@@ -27,7 +28,8 @@ export default class Location extends React.Component {
       this.setState({
         occupied: locData.val().occupied,
         inUser: locData.val().user,
-        startTime: locData.val().startTime
+        startTime: locData.val().startTime,
+        requests: // TODO: FIGURE THIS OUT
       })
     })
   }
@@ -50,7 +52,11 @@ export default class Location extends React.Component {
         </button>
       )
     } else {
-      return null;
+      return (
+        <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
+          I want next!
+        </button>
+      )
     }
   }
 
@@ -89,6 +95,14 @@ export default class Location extends React.Component {
     }
   }
 
+  pendingReqs() {
+    var reqs = [];
+    for (var i = 0; i < this.requests.length; i++) {
+      reqs.push(<label className="username">{requests[i].user.displayName}</label>);
+    }
+    return reqs;
+  }
+
   render() {
     return (
       <div className={(this.state.inUser &&
@@ -97,6 +111,7 @@ export default class Location extends React.Component {
         <h1>{this.props.loc}</h1>
         <div className="locControls">
           {this.buttonSelect()}
+          {this.pendingReqs()}
           {this.occupantDisplay()}
         </div>
       </div>

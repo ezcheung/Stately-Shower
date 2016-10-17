@@ -1,7 +1,7 @@
 import React from 'react';
 //import firebase from 'firebase';
 
-import {start, end} from '../models/DatabaseAPI';
+import {start, end, request} from '../models/DatabaseAPI';
 import Location from './location.js';
 
 export default class App extends React.Component{

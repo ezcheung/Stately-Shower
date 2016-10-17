@@ -16,6 +16,7 @@ firebase.auth().onAuthStateChanged((resp) => {
 
 export function start(location) {
   console.log("Starting " + location + " for " + user.name);
+  db.ref(`${location}/request/${user.uid}`).set(false);
   return db.ref(`${location}`).set({
     occupied: true,
     user: user,
@@ -29,4 +30,8 @@ export function end(location) {
     user: null,
     startTime: null
   })
+}
+
+export function request(location) {
+  db.ref(`${location}/request/${user.uid}`).set(true);
 }
