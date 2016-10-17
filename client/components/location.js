@@ -2,7 +2,7 @@ import React from 'react';
 //import firebase from 'firebase';
 import {start, end} from '../models/DatabaseAPI.js';
 
-const maxMins = 60;
+const maxMins = 90;
 
 export default class Location extends React.Component {
 
