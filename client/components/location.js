@@ -29,7 +29,7 @@ export default class Location extends React.Component {
         occupied: locData.val().occupied,
         inUser: locData.val().user,
         startTime: locData.val().startTime,
-        requests: // TODO: FIGURE THIS OUT
+        requests: locData.val() // TODO
       })
     })
   }
@@ -97,8 +97,8 @@ export default class Location extends React.Component {
 
   pendingReqs() {
     let reqs = [];
-    for (let i = 0; i < this.requests.length; i++) {
-      reqs.push(<label className="username">{requests[i].user.displayName}</label>);
+    for (let i = 0; i < this.state.requests.length; i++) {
+      reqs.push(<label className="username">{this.state.requests[i].user.displayName}</label>);
     }
     return (<div className="requests">{reqs}</div>);
   }
