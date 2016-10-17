@@ -96,11 +96,11 @@ export default class Location extends React.Component {
   }
 
   pendingReqs() {
-    var reqs = [];
-    for (var i = 0; i < this.requests.length; i++) {
+    let reqs = [];
+    for (let i = 0; i < this.requests.length; i++) {
       reqs.push(<label className="username">{requests[i].user.displayName}</label>);
     }
-    return reqs;
+    return (<div className="requests">{reqs}</div>);
   }
 
   render() {

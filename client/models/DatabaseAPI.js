@@ -25,6 +25,7 @@ export function start(location) {
 }
 
 export function end(location) {
+  //let current = db.ref(``) // TODO: get current shower, save stats
   db.ref(`${location}`).set({
     occupied: false,
     user: null,
