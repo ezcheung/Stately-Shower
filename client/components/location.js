@@ -124,6 +124,19 @@ export default class Location extends React.Component {
     return null;
   }
 
+  notifyMeSection() {
+    if (this.state.inUser && this.state.inUser.uid !== this.currentUser.uid) {
+      return (
+        <div className="notify">
+          <label>Notify me when vacant:</label>
+          <input type="checkbox" onChange={ () => { this.notify = !this.notify } }/>
+        </div>
+      )
+    }
+    this.notify = false;
+    return null;
+  }
+
   render() {
     return (
       <div className={(this.state.inUser &&
@@ -132,10 +145,7 @@ export default class Location extends React.Component {
         <h1>{this.props.loc}</h1>
         <div className="locControls">
           {this.buttonSelect()}
-          <div className="notify">
-            <label>Notify me when vacant:</label>
-            <input type="checkbox" onChange={ () => { this.notify = !this.notify } }/>
-          </div>
+          {this.notifyMeSection()}
           {this.notifyUser()}
           {this.pendingReqs()}
           {this.occupantDisplay()}
