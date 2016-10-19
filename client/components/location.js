@@ -57,11 +57,12 @@ export default class Location extends React.Component {
         </button>
       )
     } else {
-      return (
-        <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
-          I want next!
-        </button>
-      )
+      // return (
+      //   <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
+      //     I want next!
+      //   </button>
+      // )
+      return null;
     }
   }
 
