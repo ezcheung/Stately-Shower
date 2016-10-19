@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactAudioPlayer from 'react-audio-player';
-//import firebase from 'firebase';
+import Notifier from 'react-desktop-notification'
 import {start, end, request, clearRequests} from '../models/DatabaseAPI.js';
 
 const maxMins = 90;
@@ -116,6 +116,7 @@ export default class Location extends React.Component {
   notifyUser() {
     if (this.notifying) {
       console.log("Notifying");
+      Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, 'statelyshower.club', './assets/showerIcon.png');
       this.notifying = false;
       return (
         <ReactAudioPlayer src="./assets/capisci.mp3" autoPlay="true"/>
