@@ -18,13 +18,11 @@ export default class Location extends React.Component {
       inUser: null,
       startTime: null,
       currentTime: Date.now(),
-      requests: [],
     }
     // setInterval(() => {console.log("State: ", this.state)}, 3000);
     this.notify = false;
     this.notifying = false;
     this.dbLoc = firebase.database().ref(`${this.props.loc}`);
-    clearRequests(this.props.loc);
     this.counter = setInterval(() => this.setState({currentTime: Date.now()}), 1000);
   }
 
@@ -36,7 +34,6 @@ export default class Location extends React.Component {
         occupied: locData.val().occupied,
         inUser: locData.val().user,
         startTime: locData.val().startTime,
-        requests: locData.val().request,
       })
       console.log("This.state: ", this.state);
     })
@@ -102,22 +99,20 @@ export default class Location extends React.Component {
     );
   }
 
-  pendingReqs() {
-    if(this.state.requests) {
-      let reqs = [];
-      for (let i in this.state.requests) {
-        reqs.push(<label className="username">{this.state.requests[i].displayName}</label>);
-      }
-      return (<div className="requests">{reqs}</div>);
-    }
-    return null;
-  }
-
   notifyUser() {
     if (this.notifying) {
       console.log("Notifying");
-      Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, 'statelyshower.club', './assets/showerIcon.png');
+      Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
       this.notifying = false;
+      let titleAlert = true;
+      let titleOscillator = setInterval(() => {
+        document.title = titleAlert ? "(!) Stately Shower" : "Stately Shower";
+        titleAlert = !titleAlert;
+      }, 250);
+      setTimeout(() => {
+        document.title = "Stately Shower";
+        clearInterval(titleOscillator);
+      }, 10000);
       return (
         <ReactAudioPlayer src="./assets/capisci.mp3" autoPlay="true"/>
       )
@@ -148,7 +143,6 @@ export default class Location extends React.Component {
           {this.buttonSelect()}
           {this.notifyMeSection()}
           {this.notifyUser()}
-          {this.pendingReqs()}
           {this.occupantDisplay()}
         </div>
       </div>
