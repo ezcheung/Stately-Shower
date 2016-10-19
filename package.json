@@ -13,8 +13,10 @@
     "express": "^4.14.0",
     "path": "^0.12.7",
     "react": "^15.3.2",
+    "react-audio-player": "^0.2.7",
     "react-dom": "^15.3.2",
-    "react-router": "^2.8.1"
+    "react-router": "^2.8.1",
+    "react-sound": "^0.5.2"
   },
   "author": "Elliot Cheung",
   "devDependencies": {
