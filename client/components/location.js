@@ -19,7 +19,7 @@ export default class Location extends React.Component {
       startTime: null,
       currentTime: Date.now(),
     }
-    // setInterval(() => {console.log("State: ", this.state)}, 3000);
+    //setInterval(() => {console.log("State: ", this.state)}, 3000);
     this.notify = false;
     this.notifying = false;
     this.dbLoc = firebase.database().ref(`${this.props.loc}`);
@@ -102,8 +102,8 @@ export default class Location extends React.Component {
   notifyUser() {
     if (this.notifying) {
       console.log("Notifying");
-      Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
-      this.notifying = false;
+      //Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
+      //this.notifying = false;
       let titleAlert = true;
       let titleOscillator = setInterval(() => {
         document.title = titleAlert ? "(!) Stately Shower" : "Stately Shower";
@@ -114,7 +114,14 @@ export default class Location extends React.Component {
         clearInterval(titleOscillator);
       }, 10000);
       return (
-        <ReactAudioPlayer src="./assets/capisci.mp3" autoPlay="true"/>
+        <ReactAudioPlayer src="./assets/alert.wav" 
+        autoPlay="true"
+        onEnded={() => {
+          this.notifying = false;
+        }}
+        onPlay={() => {
+          Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
+        }}/>
       )
     }
     return null;
