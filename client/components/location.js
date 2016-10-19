@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactAudioPlayer from 'react-audio-player';
 //import firebase from 'firebase';
 import {start, end, request, clearRequests} from '../models/DatabaseAPI.js';
 
@@ -20,6 +21,8 @@ export default class Location extends React.Component {
       requests: [],
     }
     // setInterval(() => {console.log("State: ", this.state)}, 3000);
+    this.notify = false;
+    this.notifying = false;
     this.dbLoc = firebase.database().ref(`${this.props.loc}`);
     clearRequests(this.props.loc);
     this.counter = setInterval(() => this.setState({currentTime: Date.now()}), 1000);
@@ -27,12 +30,13 @@ export default class Location extends React.Component {
 
   componentWillMount() {
     this.dbLoc.on('value', (locData) => {
-      console.log("LocData: ", locData.val());
+      console.log("locdata.val: ", locData.val());
+      this.notifying = !locData.val().occupied && this.notify;
       this.setState({
         occupied: locData.val().occupied,
         inUser: locData.val().user,
         startTime: locData.val().startTime,
-        requests: locData.val().request
+        requests: locData.val().request,
       })
       console.log("This.state: ", this.state);
     })
@@ -45,10 +49,10 @@ export default class Location extends React.Component {
   buttonSelect() {
     if(!this.state.inUser) {
       return (
-        <button className="inBtn btn" onClick={()=> request(this.props.loc)}>
+        <button className="inBtn btn" onClick={()=> start(this.props.loc)}>
           In
         </button>
-      )
+      );
     } else if(this.state.inUser.uid === this.currentUser.uid) {
       return (
         <button className="outBtn btn" onClick={()=> end(this.props.loc)}>
@@ -85,18 +89,17 @@ export default class Location extends React.Component {
   occupantDisplay() {
     if(!this.state.inUser) {
       return null;
-    } else {
-      return (
-        <div>
-          <div className="occupant">
-          {`Occupied by: ${this.state.inUser.name}`}
-          </div>
-          <div className="duration">
-          {this.timeSpent()}
-          </div>
-        </div>
-      )
     }
+    return (
+      <div>
+        <div className="occupant">
+        { `Occupied by: ${this.state.inUser.name}` }
+        </div>
+        <div className="duration">
+        { this.timeSpent() }
+        </div>
+      </div>
+    );
   }
 
   pendingReqs() {
@@ -107,6 +110,18 @@ export default class Location extends React.Component {
       }
       return (<div className="requests">{reqs}</div>);
     }
+    return null;
+  }
+
+  notifyUser() {
+    if (this.notifying) {
+      console.log("Notifying");
+      this.notifying = false;
+      return (
+        <ReactAudioPlayer src="./assets/capisci.mp3" autoPlay="true"/>
+      )
+    }
+    return null;
   }
 
   render() {
@@ -117,6 +132,11 @@ export default class Location extends React.Component {
         <h1>{this.props.loc}</h1>
         <div className="locControls">
           {this.buttonSelect()}
+          <div className="notify">
+            <label>Notify me when vacant:</label>
+            <input type="checkbox" onChange={ () => { this.notify = !this.notify } }/>
+          </div>
+          {this.notifyUser()}
           {this.pendingReqs()}
           {this.occupantDisplay()}
         </div>

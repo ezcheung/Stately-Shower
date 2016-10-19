@@ -1,42 +1,42 @@
 import React from 'react';
-//import firebase from 'firebase';
+//  import firebase from 'firebase';
 
-import {start, end, request} from '../models/DatabaseAPI';
-import Location from './location.js';
+import { start, end, request } from '../models/DatabaseAPI';
+import Location from './location';
 
-export default class App extends React.Component{
-  
-  constructor(props){
+export default class App extends React.Component {
+
+  constructor(props) {
     super(props);
     this.state = {
       currentUser: firebase.auth().currentUser,
-      locations: ['Shower', 'Bath']
+      locations: ['Shower', 'Bath'],
     };
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({currentUser: user});
+        this.setState({ currentUser: user });
       } else {
-        this.setState({currentUser: null});
+        this.setState({ currentUser: null });
       }
     });
   }
 
-  componentWillMount(){
+  componentWillMount() {
 
   }
 
-  authenticate(){
-    let _this = this;
+  authenticate() {
+    const _this = this;
     console.log("_this: ", _this);
     const provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(provider)
     .then((result) => {
-      _this.setState({currentUser: result.user});
-    })
+      _this.setState({ currentUser: result.user });
+    });
   }
 
   signOut() {
-    let _this = this;
+    const _this = this;
     firebase.auth().signOut()
     .then(() => {
 
