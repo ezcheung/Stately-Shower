@@ -132,7 +132,10 @@ export default class Location extends React.Component {
         <h1>{this.props.loc}</h1>
         <div className="locControls">
           {this.buttonSelect()}
-          <input type="checkbox" onChange={ () => { this.notify = !this.notify } }/>
+          <div className="notify">
+            <label>Notify me when vacant:</label>
+            <input type="checkbox" onChange={ () => { this.notify = !this.notify } }/>
+          </div>
           {this.notifyUser()}
           {this.pendingReqs()}
           {this.occupantDisplay()}
