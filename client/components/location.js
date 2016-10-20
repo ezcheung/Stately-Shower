@@ -127,6 +127,7 @@ export default class Location extends React.Component {
         autoPlay="true"
         onEnded={() => {
           this.notifying = false;
+          alert(`Stately ${this.props.loc} is now vacant`);
         }}
         onPlay={() => {
           Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
