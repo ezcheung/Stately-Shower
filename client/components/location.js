@@ -44,24 +44,33 @@ export default class Location extends React.Component {
   }
 
   buttonSelect() {
-    if(!this.state.inUser) {
+    if(!this.state.inUser && !this.props.userIsIn) {
       return (
-        <button className="inBtn btn" onClick={()=> start(this.props.loc)}>
+        <button className="inBtn btn" onClick={()=> {
+          start(this.props.loc);
+          this.props.setUserIn(this.props.loc);
+        }}>
           In
         </button>
       );
+    } else if (!this.state.inUser) {
+      return null;
     } else if(this.state.inUser.uid === this.currentUser.uid) {
       return (
-        <button className="outBtn btn" onClick={()=> end(this.props.loc)}>
+        <button className="outBtn btn" onClick={()=> {
+          end(this.props.loc);
+          this.props.setUserIn(null);
+        }}>
           Out
         </button>
       )
     } else {
-      return (
-        <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
-          I want next!
-        </button>
-      )
+      // return (
+      //   <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
+      //     I want next!
+      //   </button>
+      // )
+      return null;
     }
   }
 

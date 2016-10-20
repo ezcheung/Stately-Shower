@@ -11,6 +11,7 @@ export default class App extends React.Component {
     this.state = {
       currentUser: firebase.auth().currentUser,
       locations: ['Shower', 'Bath'],
+      userIsIn: null,
     };
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -49,9 +50,21 @@ export default class App extends React.Component {
   locations(){
     let locs = [];
     for(let i = 0; i < this.state.locations.length; i++) {
-      locs.push(<Location loc={this.state.locations[i]} currUser={this.state.currentUser}/>);
+      locs.push(<Location loc={this.state.locations[i]} currUser={this.state.currentUser} 
+        setUserIn={this.setUserIn.bind(this)} userIsIn={this.state.userIsIn}/>);
     }
     return locs;
+  }
+
+  setUserIn (userIn) {
+    this.setState({userIsIn: userIn});
+  }
+
+  currentlyIn () {
+    if (!this.state.userIsIn) {
+      return null;
+    }
+    return <h2>{`You are in the Stately ${this.state.userIsIn}`}</h2>
   }
 
   authenticateView(){
@@ -63,6 +76,7 @@ export default class App extends React.Component {
         <button className="logoutBtn" onClick={this.signOut.bind(_this)}>
           Log out
         </button>
+        {this.currentlyIn()}
         {this.locations()}
         </div>
       )
