@@ -3,6 +3,11 @@ body{
   font-family: 'Lato', sans-serif;
 }
 
+.hidden {
+  opacity: 0;
+  cursor: default;
+}
+
 #app{
   min-height: 100vh;
 }
