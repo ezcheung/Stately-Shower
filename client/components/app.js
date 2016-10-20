@@ -60,6 +60,13 @@ export default class App extends React.Component {
     this.setState({userIsIn: userIn});
   }
 
+  currentlyIn () {
+    if (!this.state.userIsIn) {
+      return null;
+    }
+    return <h2>{`You are in the Stately ${this.state.userIsIn}`}</h2>
+  }
+
   authenticateView(){
     var _this = this;
     console.log("This.state.currentUser: ", this.state.currentUser);
@@ -69,6 +76,7 @@ export default class App extends React.Component {
         <button className="logoutBtn" onClick={this.signOut.bind(_this)}>
           Log out
         </button>
+        {this.currentlyIn()}
         {this.locations()}
         </div>
       )
