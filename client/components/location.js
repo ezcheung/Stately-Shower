@@ -18,6 +18,7 @@ export default class Location extends React.Component {
       inUser: null,
       startTime: null,
       currentTime: Date.now(),
+      outOfOrder: false
     }
     //setInterval(() => {console.log("State: ", this.state)}, 3000);
     this.notify = false;
@@ -34,6 +35,7 @@ export default class Location extends React.Component {
         occupied: locData.val().occupied,
         inUser: locData.val().user,
         startTime: locData.val().startTime,
+        outOfOrder: locData.val().outOfOrder
       })
       console.log("This.state: ", this.state);
     })
@@ -44,6 +46,9 @@ export default class Location extends React.Component {
   }
 
   buttonSelect() {
+    if(!this.state.inUser && this.state.outOfOrder) {
+      return null;
+    }
     if(!this.state.inUser && !this.props.userIsIn) {
       return (
         <button className="inBtn btn" onClick={()=> {

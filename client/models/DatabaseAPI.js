@@ -40,3 +40,15 @@ export function request(location) {
 export function clearRequests(location) {
   db.ref(`${location}/request`).remove();
 }
+
+export function setOutOfOrder(location) {
+  db.ref(`${location}`).set({
+    outOfOrder: true;
+  })
+}
+
+export function setFixed(location) {
+  db.ref(`${location}`).set({
+    outOfOrder: false;
+  })
+}
