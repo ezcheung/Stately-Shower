@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Notifier from 'react-desktop-notification'
-import {start, end, request, clearRequests} from '../models/DatabaseAPI.js';
+import {start, end, request, clearRequests, setOutOfOrder, setFixed} from '../models/DatabaseAPI.js';
 
 const maxMins = 90;
 
@@ -155,6 +155,14 @@ export default class Location extends React.Component {
     return null;
   }
 
+  toggleOutOfOrder() {
+    if(this.state.outOfOrder) {
+      setFixed(this.props.loc);
+    } else {
+      setOutOfOrder(this.props.loc);
+    }
+  }
+
   render() {
     return (
       <div className={(this.state.inUser &&
@@ -162,6 +170,9 @@ export default class Location extends React.Component {
         "unavailable location" : "location"}>
         <h1>{this.props.loc}</h1>
         <div className="locControls">
+          <button class="outOfOrderBtn" onClick={this.toggleOutOfOrder()}>
+          Out of order
+          </button>
           {this.buttonSelect()}
           {this.notifyMeSection()}
           {this.notifyUser()}
