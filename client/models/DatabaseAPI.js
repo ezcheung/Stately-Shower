@@ -43,12 +43,12 @@ export function clearRequests(location) {
 
 export function setOutOfOrder(location) {
   db.ref(`${location}`).set({
-    outOfOrder: true;
+    outOfOrder: true
   })
 }
 
 export function setFixed(location) {
   db.ref(`${location}`).set({
-    outOfOrder: false;
+    outOfOrder: false
   })
 }
