@@ -46,6 +46,9 @@ export default class Location extends React.Component {
   }
 
   buttonSelect() {
+    if(this.state.outOfOrder) {
+      return (<div>{`Stately ${this.props.loc} has been marked unavailable`}</div>)
+    }
     if(!this.state.inUser && !this.props.userIsIn) {
       return (
         <button className="inBtn btn" onClick={()=> {
@@ -160,6 +163,16 @@ export default class Location extends React.Component {
     }
   }
 
+  outOfOrderBtn() {
+    if(!this.state.inUser) {
+      return (<button className="outOfOrderBtn btn" onClick={this.toggleOutOfOrder.bind(this)}>
+        {this.state.outOfOrder ? "Mark as available" : "Mark as unavailable"}
+      </button>
+      )
+    }
+    return null;
+  }
+
   render() {
     return (
       <div className={(this.state.inUser &&
@@ -168,9 +181,7 @@ export default class Location extends React.Component {
         "unavailable location" : "location"}>
         <div className="topRow">
           <h1>{this.props.loc}</h1>
-          <button className="outOfOrderBtn btn" onClick={this.toggleOutOfOrder.bind(this)}>
-          {this.state.outOfOrder ? "Mark as available" : "Mark as unavailable"}
-          </button>
+          {this.outOfOrderBtn()}
         </div>
         <div className="locControls">
           {this.buttonSelect()}
