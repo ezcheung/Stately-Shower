@@ -12,6 +12,14 @@ body{
   min-height: 100vh;
 }
 
+.topRow{
+  display: flex;
+}
+
+.topRow>h1{
+  flex: 8;
+}
+
 .login{
   display: flex;
   margin-left: auto;
@@ -24,9 +32,8 @@ body{
 }
 
 .outOfOrderBtn{
-  position: relative;
-  top: 0;
-  right: 0;
+  flex: 1;
+  background-color: rgb(255, 204, 0);
 }
 
 .notify{

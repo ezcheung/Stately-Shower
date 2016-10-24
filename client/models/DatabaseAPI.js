@@ -16,11 +16,16 @@ firebase.auth().onAuthStateChanged((resp) => {
 
 export function start(location) {
   console.log("Starting " + location + " for " + user.name);
-  db.ref(`${location}/request/${user.uid}`).set(false);
-  return db.ref(`${location}`).set({
-    occupied: true,
-    user: user,
-    startTime: Date.now()
+  return db.ref(`${location}`).once('value').then((currState) => {
+    if(currState.occupied) {
+      return;
+    }
+    db.ref(`${location}/request/${user.uid}`).set(false);
+    return db.ref(`${location}`).set({
+      occupied: true,
+      user: user,
+      startTime: Date.now()
+    })
   })
 }
 
