@@ -33,6 +33,7 @@ body{
 
 .outOfOrderBtn{
   flex: 1;
+  background-color: rgb(255, 204, 0);
 }
 
 .notify{
