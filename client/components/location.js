@@ -166,10 +166,12 @@ export default class Location extends React.Component {
         this.state.inUser.uid !== this.currentUser.uid
         || this.state.outOfOrder) ?
         "unavailable location" : "location"}>
-        <h1>{this.props.loc}</h1>
-        <button className="outOfOrderBtn btn" onClick={this.toggleOutOfOrder.bind(this)}>
-        {this.state.outOfOrder ? "Mark as available" : "Mark as unavailable"}
-        </button>
+        <div className="topRow">
+          <h1>{this.props.loc}</h1>
+          <button className="outOfOrderBtn btn" onClick={this.toggleOutOfOrder.bind(this)}>
+          {this.state.outOfOrder ? "Mark as available" : "Mark as unavailable"}
+          </button>
+        </div>
         <div className="locControls">
           {this.buttonSelect()}
           {this.notifyMeSection()}
