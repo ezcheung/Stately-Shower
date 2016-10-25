@@ -5,7 +5,7 @@ let db = firebase.database();
 let user = null;
 firebase.auth().onAuthStateChanged((resp) => {
   if (resp) {
-    user = {name: resp.displayName, uid: resp.uid}
+    user = {name: resp.displayName, uid: resp.uid, photoURL: resp.photoURL}
   } else {
     user = null;
   }
@@ -39,11 +39,14 @@ export function end(location) {
 }
 
 export function request(location) {
-  db.ref(`${location}/request/${user.uid}`).set(user);
+  let userDBLoc = db.ref(`${location}/requests/${user.uid}`);
+  userDBLoc.once('value').then(requested => {
+    userDBLoc.set(requested.val() ? null : {user: user, requestedAt: Date.now()});
+  })
 }
 
 export function clearRequests(location) {
-  db.ref(`${location}/request`).remove();
+  db.ref(`${location}/requests`).remove();
 }
 
 export function setOutOfOrder(location, username) {

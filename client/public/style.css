@@ -69,13 +69,36 @@ body{
 .location{
   color: rgb(86, 179, 216);
   background-color: white;
-  margin-left: auto;
+  /*margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 50%;*/
   border: 2px solid rgb(86, 179, 216);
   border-radius: 10px;
   padding: 5px;
   margin-top: 10%;
+}
+
+.perLocation{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.portrait{
+  display: inline;
+  max-width: 35px;
+  border-radius: 20px;
+  margin-right: 3%;
+}
+
+.requestBar{
+  color: rgb(86, 179, 216);
+  margin-top: 2%;
+  border: 1px solid rgb(86, 179, 216);
+  border-radius: 10px;
+  padding: 1%;
+  min-height: 25px;
+  background-color: white;
 }
 
 .unavailable{

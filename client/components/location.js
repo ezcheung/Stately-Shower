@@ -18,7 +18,8 @@ export default class Location extends React.Component {
       inUser: null,
       startTime: null,
       currentTime: Date.now(),
-      outOfOrder: false
+      outOfOrder: false,
+      requested: false
     }
     //setInterval(() => {console.log("State: ", this.state)}, 3000);
     this.notify = false;
@@ -35,10 +36,12 @@ export default class Location extends React.Component {
         occupied: locData.val().occupied,
         inUser: locData.val().user,
         startTime: locData.val().startTime,
-        outOfOrder: locData.val().outOfOrder
+        outOfOrder: locData.val().outOfOrder,
+        requested: Boolean(locData.val().requests && locData.val().requests[this.currentUser.uid])
       })
       console.log("This.state: ", this.state);
     })
+    // this.dbLoc.child(`requests`).on('value')
   }
 
   componentWillUnmount() {
@@ -49,11 +52,14 @@ export default class Location extends React.Component {
     if(this.state.outOfOrder) {
       return (<div>{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder}`}</div>)
     }
-    if(!this.state.inUser && !this.props.userIsIn) {
+    if(!this.state.inUser && !this.props.userIsIn && !(this.props.userRequested.length && this.props.userRequested !== this.props.loc)) {
       return (
         <button className="inBtn btn" onClick={()=> {
           start(this.props.loc);
           this.props.setUserIn(this.props.loc);
+          if(this.state.requested) {
+            this.props.setUserRequest(this.props.loc);
+          }
         }}>
           In
         </button>
@@ -70,13 +76,21 @@ export default class Location extends React.Component {
         </button>
       )
     } else {
-      // return (
-      //   <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
-      //     I want next!
-      //   </button>
-      // )
       return null;
     }
+  }
+
+  requestBtn() {
+    if (this.props.userIsIn || (this.props.userRequested.length && this.props.userRequested !== this.props.loc)) {
+      return null;
+    }
+    return (
+      <button className="reqBtn btn" onClick={() => {
+        request(this.props.loc);
+        this.props.setUserRequest(this.props.loc);
+      }}>
+      {this.state.requested ? "Dequeue" : "I want next!"}</button>
+      )
   }
 
   timeSpent() {
@@ -185,6 +199,7 @@ export default class Location extends React.Component {
         </div>
         <div className="locControls">
           {this.buttonSelect()}
+          {this.requestBtn()}
           {this.notifyMeSection()}
           {this.notifyUser()}
           {this.occupantDisplay()}
