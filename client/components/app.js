@@ -13,6 +13,7 @@ export default class App extends React.Component {
       currentUser: firebase.auth().currentUser,
       locations: ['Shower', 'Bath'],
       userIsIn: null,
+      userRequested: "",
     };
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -53,7 +54,8 @@ export default class App extends React.Component {
       locs.push(
         <div className="perLocation">
           <Location loc={this.state.locations[i]} currUser={this.state.currentUser} 
-          setUserIn={this.setUserIn.bind(this)} userIsIn={this.state.userIsIn}/>
+          setUserIn={this.setUserIn.bind(this)} userIsIn={this.state.userIsIn}
+          userRequested={this.state.userRequested} setUserRequest={this.setUserRequest.bind(this)}/>
           <Requests loc={this.state.locations[i]} currUser={this.state.currentUser}/>
         </div>
       );
@@ -70,6 +72,18 @@ export default class App extends React.Component {
       return <h2 className="hidden">Hi there</h2>;
     }
     return <h2>{`You are in the Stately ${this.state.userIsIn}`}</h2>
+  }
+
+  setUserRequest (loc) {
+    if (this.state.userRequested === loc) {
+      this.setState({
+        userRequested: ""
+      })
+    } else if (this.state.userRequested !== "") {
+      return;
+    } else if (this.state.userRequested === "") {
+      this.setState({userRequested: loc});
+    }
   }
 
   authenticateView(){

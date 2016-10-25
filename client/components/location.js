@@ -52,11 +52,14 @@ export default class Location extends React.Component {
     if(this.state.outOfOrder) {
       return (<div>{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder}`}</div>)
     }
-    if(!this.state.inUser && !this.props.userIsIn) {
+    if(!this.state.inUser && !this.props.userIsIn && !(this.props.userRequested.length && this.props.userRequested !== this.props.loc)) {
       return (
         <button className="inBtn btn" onClick={()=> {
           start(this.props.loc);
           this.props.setUserIn(this.props.loc);
+          if(this.state.requested) {
+            this.props.setUserRequest(this.props.loc);
+          }
         }}>
           In
         </button>
@@ -78,11 +81,14 @@ export default class Location extends React.Component {
   }
 
   requestBtn() {
-    if (this.props.userIsIn) {
+    if (this.props.userIsIn || (this.props.userRequested.length && this.props.userRequested !== this.props.loc)) {
       return null;
     }
     return (
-      <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
+      <button className="reqBtn btn" onClick={() => {
+        request(this.props.loc);
+        this.props.setUserRequest(this.props.loc);
+      }}>
       {this.state.requested ? "Dequeue" : "I want next!"}</button>
       )
   }
