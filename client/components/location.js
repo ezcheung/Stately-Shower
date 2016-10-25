@@ -73,9 +73,18 @@ export default class Location extends React.Component {
         </button>
       )
     } else {
-      <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
-      {this.state.requested ? "Cancel Request" : "I want next!"}</button>
+      return null;
     }
+  }
+
+  requestBtn() {
+    if (this.props.userIsIn) {
+      return null;
+    }
+    return (
+      <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
+      {this.state.requested ? "Dequeue" : "I want next!"}</button>
+      )
   }
 
   timeSpent() {
@@ -184,6 +193,7 @@ export default class Location extends React.Component {
         </div>
         <div className="locControls">
           {this.buttonSelect()}
+          {this.requestBtn()}
           {this.notifyMeSection()}
           {this.notifyUser()}
           {this.occupantDisplay()}
