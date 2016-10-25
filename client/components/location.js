@@ -18,7 +18,8 @@ export default class Location extends React.Component {
       inUser: null,
       startTime: null,
       currentTime: Date.now(),
-      outOfOrder: false
+      outOfOrder: false,
+      requested: false
     }
     //setInterval(() => {console.log("State: ", this.state)}, 3000);
     this.notify = false;
@@ -36,10 +37,12 @@ export default class Location extends React.Component {
         occupied: locData.val().occupied,
         inUser: locData.val().user,
         startTime: locData.val().startTime,
-        outOfOrder: locData.val().outOfOrder
+        outOfOrder: locData.val().outOfOrder,
+        requested: Boolean(locData.val().requests && locData.val().requests[this.currentUser.uid])
       })
       console.log("This.state: ", this.state);
     })
+    // this.dbLoc.child(`requests`).on('value')
   }
 
   componentWillUnmount() {
@@ -71,12 +74,7 @@ export default class Location extends React.Component {
         </button>
       )
     } else {
-      // return (
-      //   <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
-      //     I want next!
-      //   </button>
-      // )
-      return null;
+      <button className="reqBtn btn" onClick={() => request(this.props.loc)}>I want next!</button>
     }
   }
 
@@ -186,7 +184,6 @@ export default class Location extends React.Component {
         </div>
         <div className="locControls">
           {this.buttonSelect()}
-          <button className="btn" onClick={() => request(this.props.loc)}>Request</button>
           {this.notifyMeSection()}
           {this.notifyUser()}
           {this.occupantDisplay()}

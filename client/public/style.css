@@ -90,6 +90,14 @@ body{
   border-radius: 20px;
 }
 
+.requestBar{
+  margin-top: 2%;
+  border: 1px solid rgb(86, 179, 216);
+  border-radius: 10px;
+  padding: 1%;
+  min-height: 25px;
+}
+
 .unavailable{
   background-color: #DDD !important;
 }
