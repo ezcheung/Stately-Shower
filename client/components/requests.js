@@ -27,10 +27,11 @@ export default class Requests extends React.Component {
     for(let i in this.state.queue) {
       output.push(<img 
         className="portrait"
-        alt={this.state.queue[i].name} 
-        title={this.state.queue[i].name} 
-        src={this.state.queue[i].photoURL}/>)
+        alt={this.state.queue[i].user.name} 
+        title={this.state.queue[i].user.name} 
+        src={this.state.queue[i].user.photoURL}/>)
     }
+    output.sort((a, b) => a.requestedAt - b.requestedAt);
     return output;
   }
 

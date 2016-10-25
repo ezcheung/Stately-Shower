@@ -29,7 +29,6 @@ export default class Location extends React.Component {
   }
 
   componentWillMount() {
-    clearRequests(this.props.loc);
     this.dbLoc.on('value', (locData) => {
       console.log("locdata.val: ", locData.val());
       this.notifying = !locData.val().occupied && this.notify;
@@ -74,7 +73,8 @@ export default class Location extends React.Component {
         </button>
       )
     } else {
-      <button className="reqBtn btn" onClick={() => request(this.props.loc)}>I want next!</button>
+      <button className="reqBtn btn" onClick={() => request(this.props.loc)}>
+      {this.state.requested ? "Cancel Request" : "I want next!"}</button>
     }
   }
 

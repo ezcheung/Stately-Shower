@@ -41,7 +41,7 @@ export function end(location) {
 export function request(location) {
   let userDBLoc = db.ref(`${location}/requests/${user.uid}`);
   userDBLoc.once('value').then(requested => {
-    userDBLoc.set(requested.val() ? null : user);
+    userDBLoc.set(requested.val() ? null : {user: user, requestedAt: Date.now()});
   })
 }
 
