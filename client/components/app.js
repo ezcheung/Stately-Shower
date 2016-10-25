@@ -3,6 +3,7 @@ import React from 'react';
 
 import { start, end, request } from '../models/DatabaseAPI';
 import Location from './location';
+import Requests from './requests';
 
 export default class App extends React.Component {
 

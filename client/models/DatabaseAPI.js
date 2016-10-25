@@ -39,11 +39,12 @@ export function end(location) {
 }
 
 export function request(location) {
-  db.ref(`${location}/request/${user.uid}`).set(user);
+  let key = db.ref(`${location}/requests`).push().key;
+  db.ref(`${location}/requests/${key}`).set(user);
 }
 
 export function clearRequests(location) {
-  db.ref(`${location}/request`).remove();
+  db.ref(`${location}/requests`).remove();
 }
 
 export function setOutOfOrder(location, username) {
