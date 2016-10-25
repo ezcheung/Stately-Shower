@@ -39,8 +39,7 @@ export function end(location) {
 }
 
 export function request(location) {
-  let key = db.ref(`${location}/requests`).push().key;
-  db.ref(`${location}/requests/${key}`).set(user);
+  db.ref(`${location}/requests/${user.uid}`).set(user);
 }
 
 export function clearRequests(location) {

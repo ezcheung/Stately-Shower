@@ -25,7 +25,11 @@ export default class Requests extends React.Component {
     }
     let output = [];
     for(let i in this.state.queue) {
-      output.push(<img src={this.state.queue[i].photoURL}/>)
+      output.push(<img 
+        className="portrait"
+        alt={this.state.queue[i].name} 
+        title={this.state.queue[i].name} 
+        src={this.state.queue[i].photoURL}/>)
     }
     return output;
   }
