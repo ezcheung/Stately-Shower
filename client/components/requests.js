@@ -14,14 +14,17 @@ export default class Requests extends React.Component {
     this.dbLoc.on('value', (reqs) => {
       console.log("Reqs received: ", reqs.val());
       this.setState({
-        queue: reqs.val();
+        queue: reqs.val()
       });
     })
   }
 
   portraits() {
+    if(!this.state.queue) {
+      return;
+    }
     let output = [];
-    for(let i = 0; i < this.state.queue.length; i++) {
+    for(let i in this.state.queue) {
       output.push(<img src={this.state.queue[i].photoURL}/>)
     }
     return output;

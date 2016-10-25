@@ -28,6 +28,7 @@ export default class Location extends React.Component {
   }
 
   componentWillMount() {
+    clearRequests(this.props.loc);
     this.dbLoc.on('value', (locData) => {
       console.log("locdata.val: ", locData.val());
       this.notifying = !locData.val().occupied && this.notify;
@@ -185,6 +186,7 @@ export default class Location extends React.Component {
         </div>
         <div className="locControls">
           {this.buttonSelect()}
+          <button className="btn" onClick={() => request(this.props.loc)}>Request</button>
           {this.notifyMeSection()}
           {this.notifyUser()}
           {this.occupantDisplay()}

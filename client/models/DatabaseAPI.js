@@ -5,7 +5,7 @@ let db = firebase.database();
 let user = null;
 firebase.auth().onAuthStateChanged((resp) => {
   if (resp) {
-    user = {name: resp.displayName, uid: resp.uid}
+    user = {name: resp.displayName, uid: resp.uid, photoURL: resp.photoURL}
   } else {
     user = null;
   }

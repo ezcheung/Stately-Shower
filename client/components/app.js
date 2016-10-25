@@ -50,8 +50,13 @@ export default class App extends React.Component {
   locations(){
     let locs = [];
     for(let i = 0; i < this.state.locations.length; i++) {
-      locs.push(<Location loc={this.state.locations[i]} currUser={this.state.currentUser} 
-        setUserIn={this.setUserIn.bind(this)} userIsIn={this.state.userIsIn}/>);
+      locs.push(
+        <div>
+          <Location loc={this.state.locations[i]} currUser={this.state.currentUser} 
+          setUserIn={this.setUserIn.bind(this)} userIsIn={this.state.userIsIn}/>
+          <Requests loc={this.state.locations[i]} currUser={this.state.currentUser}/>
+        </div>
+      );
     }
     return locs;
   }
