@@ -46,9 +46,9 @@ export function clearRequests(location) {
   db.ref(`${location}/request`).remove();
 }
 
-export function setOutOfOrder(location) {
+export function setOutOfOrder(location, username) {
   db.ref(`${location}`).set({
-    outOfOrder: true
+    outOfOrder: username
   })
 }
 
