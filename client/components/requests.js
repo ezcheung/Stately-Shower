@@ -38,7 +38,7 @@ export default class Requests extends React.Component {
   render() {
     return (
       <div className="requestBar">
-        <label>On deck:</label>
+        <label>In queue:</label>
         <div className="reqPortraits">
           {this.portraits()}
         </div>
