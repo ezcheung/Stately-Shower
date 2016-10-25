@@ -47,7 +47,7 @@ export default class Location extends React.Component {
 
   buttonSelect() {
     if(this.state.outOfOrder) {
-      return (<div>{`Stately ${this.props.loc} has been marked unavailable`}</div>)
+      return (<div>{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder}`}</div>)
     }
     if(!this.state.inUser && !this.props.userIsIn) {
       return (
@@ -159,7 +159,7 @@ export default class Location extends React.Component {
     if(this.state.outOfOrder) {
       setFixed(this.props.loc);
     } else {
-      setOutOfOrder(this.props.loc);
+      setOutOfOrder(this.props.loc, this.currentUser.displayName);
     }
   }
 

@@ -28,7 +28,6 @@ export default class App extends React.Component {
 
   authenticate() {
     const _this = this;
-    console.log("_this: ", _this);
     const provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(provider)
     .then((result) => {
