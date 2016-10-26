@@ -86,10 +86,10 @@ body{
 
 .portrait{
   display: inline;
-  max-width: 35px;
+  max-width: 25px;
   border-radius: 20px;
   margin-right: 3%;
-  margin-top: 2%;
+  margin-top: 1%;
 }
 
 .requestBar{
@@ -129,6 +129,7 @@ body{
 .inBtn{
   background-color: rgb(86, 179, 216);
   color: white;
+  margin-right: 1%
 }
 
 .outBtn{
