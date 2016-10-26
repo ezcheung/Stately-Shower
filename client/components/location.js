@@ -85,7 +85,7 @@ export default class Location extends React.Component {
       return null;
     }
     return (
-      <button className="reqBtn btn" onClick={() => {
+      <button className={this.state.requested ? "deReqBtn btn" : "reqBtn btn"} onClick={() => {
         request(this.props.loc);
         this.props.setUserRequest(this.props.loc);
       }}>

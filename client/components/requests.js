@@ -5,7 +5,7 @@ export default class Requests extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      queue: [],
+      queue: null,
     }
     this.dbLoc = firebase.database().ref(`${this.props.loc}/requests`);
   }
@@ -36,13 +36,14 @@ export default class Requests extends React.Component {
   }
 
   render() {
-    return (
+    return this.state.queue ? 
+    (
       <div className="requestBar">
-        <label>In queue:</label>
+        <label>Queue for Stately {this.props.loc}:</label>
         <div className="reqPortraits">
           {this.portraits()}
         </div>
       </div>
-    )
+    ) : null
   }
 }
