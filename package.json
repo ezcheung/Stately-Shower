@@ -1,6 +1,6 @@
 {
   "name": "stately-shower",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "scripts": {
     "start": "nodemon server/server.js",
     "build": "browserify client/main.js -o client/public/bundle.js -t [ babelify --presets [es2015 react] ]",
