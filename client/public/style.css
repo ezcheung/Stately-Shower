@@ -137,6 +137,10 @@ body{
   color: white;
 }
 
+.outOfOrder{
+  margin-bottom: 2%;
+}
+
 .reqBtn{
   background-color: rgb(46, 114, 42);
   color: white;
