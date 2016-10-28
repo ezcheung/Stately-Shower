@@ -91,7 +91,7 @@ export default class Location extends React.Component {
         request(this.props.loc);
         this.props.setUserRequest(this.props.loc);
       }}>
-      {this.state.requested ? "Leave Queue" : "I want next!"}</button>
+      {this.state.requested ? "Dequeue" : "Enqueue"}</button>
       )
   }
 
