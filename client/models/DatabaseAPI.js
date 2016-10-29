@@ -26,7 +26,7 @@ export function start(location) {
       user: user,
       startTime: Date.now()
     }))
-    db.ref(`${location}/request/${user.uid}`).set(false);
+    db.ref(`${location}/requests/${user.uid}`).set(null);
   })
 }
 
