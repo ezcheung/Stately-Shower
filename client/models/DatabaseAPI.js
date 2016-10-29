@@ -17,24 +17,28 @@ firebase.auth().onAuthStateChanged((resp) => {
 export function start(location) {
   console.log("Starting " + location + " for " + user.name);
   return db.ref(`${location}`).once('value').then((currState) => {
+    currState = currState.val();
     if(currState.occupied) {
       return;
     }
-    db.ref(`${location}/request/${user.uid}`).set(false);
-    return db.ref(`${location}`).set({
+    db.ref(`${location}`).set(Object.assign(currState, {
       occupied: true,
       user: user,
       startTime: Date.now()
-    })
+    }))
+    db.ref(`${location}/request/${user.uid}`).set(false);
   })
 }
 
 export function end(location) {
   //let current = db.ref(``) // TODO: get current shower, save stats
-  db.ref(`${location}`).set({
-    occupied: false,
-    user: null,
-    startTime: null
+  db.ref(`${location}`).once('value').then((currState) => {
+    currState = currState.val();
+    db.ref(`${location}`).set(Object.assign(currState, {
+      occupied: false,
+      user: null,
+      startTime: null
+    }))
   })
 }
 
@@ -50,13 +54,19 @@ export function clearRequests(location) {
 }
 
 export function setOutOfOrder(location, username) {
-  db.ref(`${location}`).set({
-    outOfOrder: username
+  db.ref(`${location}`).once('value').then((currState) => {
+    currState = currState.val();
+    db.ref(`${location}`).set(Object.assign(currState, {
+      outOfOrder: username
+    }))
   })
 }
 
 export function setFixed(location) {
-  db.ref(`${location}`).set({
-    outOfOrder: false
+  db.ref(`${location}`).once('value').then((currState) => {
+    currState = currState.val();
+    db.ref(`${location}`).set(Object.assign(currState, {
+      outOfOrder: false
+    }))
   })
 }
