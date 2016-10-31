@@ -50,7 +50,7 @@ export default class Location extends React.Component {
 
   buttonSelect() {
     if(this.state.outOfOrder) {
-      return (<div className="outOfOrder">{`Spooky ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder}`}</div>)
+      return (<div className="outOfOrder">{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder}`}</div>)
     }
     if(!this.state.inUser && !this.props.userIsIn) {
       // && !(this.props.userRequested.length && this.props.userRequested !== this.props.loc)
@@ -132,15 +132,15 @@ export default class Location extends React.Component {
   notifyUser() {
     if (this.notifying) {
       console.log("Notifying");
-      //Notifier.start(`Vacancy`, `Spooky ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
+      //Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
       //this.notifying = false;
       let titleAlert = true;
       let titleOscillator = setInterval(() => {
-        document.title = titleAlert ? "(!) Spooky Shower" : "Spooky Shower";
+        document.title = titleAlert ? "(!) Stately Shower" : "Stately Shower";
         titleAlert = !titleAlert;
       }, 250);
       setTimeout(() => {
-        document.title = "Spooky Shower";
+        document.title = "Stately Shower";
         clearInterval(titleOscillator);
       }, 10000);
       return (
@@ -150,8 +150,8 @@ export default class Location extends React.Component {
           this.notifying = false;
         }}
         onPlay={() => {
-          Notifier.start(`Vacancy`, `Spooky ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
-          alert(`Spooky ${this.props.loc} is now vacant`);
+          Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
+          alert(`Stately ${this.props.loc} is now vacant`);
         }}/>
       )
     }
