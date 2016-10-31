@@ -71,7 +71,7 @@ export default class App extends React.Component {
     if (!this.state.userIsIn) {
       return <h2 className="hidden">Hi there</h2>;
     }
-    return <h2>{`You are in the Stately ${this.state.userIsIn}`}</h2>
+    return <h2>{`You are in the Spooky ${this.state.userIsIn}`}</h2>
   }
 
   setUserRequest (loc) {
@@ -102,7 +102,7 @@ export default class App extends React.Component {
     } else {
       return (
       <div className="login">
-      <h1 className="welcome">Welcome to Stately Shower!</h1>
+      <h1 className="welcome">Welcome to Spooky Shower!</h1>
       <button className="loginBtn" onClick={this.authenticate.bind(_this)}>Log in with Facebook</button>
       </div>
       )
