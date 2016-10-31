@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactAudioPlayer from 'react-audio-player';
 import Notifier from 'react-desktop-notification'
 import {start, end, request, clearRequests, setOutOfOrder, setFixed} from '../models/DatabaseAPI.js';
 
@@ -139,21 +138,15 @@ export default class Location extends React.Component {
         document.title = titleAlert ? "(!) Stately Shower" : "Stately Shower";
         titleAlert = !titleAlert;
       }, 250);
+      let alertSound = new Audio('./assets/alert.wav');
+      alertSound.play();
+      //alert(`Stately ${this.props.loc} is now vacant`);
+      Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
       setTimeout(() => {
         document.title = "Stately Shower";
         clearInterval(titleOscillator);
       }, 10000);
-      return (
-        <ReactAudioPlayer src="./assets/alert.wav" 
-        autoPlay="true"
-        onEnded={() => {
-          this.notifying = false;
-        }}
-        onPlay={() => {
-          Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
-          alert(`Stately ${this.props.loc} is now vacant`);
-        }}/>
-      )
+      this.notifying = false;
     }
     return null;
   }
