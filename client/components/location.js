@@ -61,7 +61,7 @@ export default class Location extends React.Component {
             this.props.setUserRequest(this.props.loc);
           }
         }}>
-          In! :D
+          In
         </button>
       );
     } else if (!this.state.inUser) {
@@ -72,7 +72,7 @@ export default class Location extends React.Component {
           end(this.props.loc);
           this.props.setUserIn(null);
         }}>
-          Out! :D
+          Out
         </button>
       )
     } else {
@@ -90,7 +90,7 @@ export default class Location extends React.Component {
         request(this.props.loc);
         this.props.setUserRequest(this.props.loc);
       }}>
-      {this.state.requested ? "Dequeue! :D" : "Enqueue! :D"}</button>
+      {this.state.requested ? "Dequeue" : "Enqueue"}</button>
       )
   }
 
@@ -109,7 +109,7 @@ export default class Location extends React.Component {
     if(secs < 10) {
       secs = '0' + secs;
     }
-    return `${mins}:${secs}! :D`;
+    return `${mins}:${secs}`;
   }
 
   occupantDisplay() {
@@ -119,7 +119,7 @@ export default class Location extends React.Component {
     return (
       <div>
         <div className="occupant">
-        { `Occupied by: ${this.state.inUser.name}! :D` }
+        { `Occupied by: ${this.state.inUser.name}` }
         </div>
         <div className="duration">
         { this.timeSpent() }
@@ -175,7 +175,7 @@ export default class Location extends React.Component {
   outOfOrderBtn() {
     if(!this.state.inUser) {
       return (<button className="outOfOrderBtn btn" onClick={this.toggleOutOfOrder.bind(this)}>
-        {this.state.outOfOrder ? "Mark as available! :D" : "Mark as unavailable! :D"}
+        {this.state.outOfOrder ? "Mark as available" : "Mark as unavailable"}
       </button>
       )
     }
@@ -189,7 +189,7 @@ export default class Location extends React.Component {
         || this.state.outOfOrder) ?
         "unavailable location" : "location"}>
         <div className="topRow">
-          <h1>{this.props.loc + "! :D"}</h1>
+          <h1>{this.props.loc}</h1>
           {this.outOfOrderBtn()}
         </div>
         <div className="locControls">

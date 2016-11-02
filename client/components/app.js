@@ -79,9 +79,9 @@ export default class App extends React.Component {
 
   currentlyIn () {
     if (!this.state.userIsIn) {
-      return <h2>{`Welcome, ${this.nicknames[this.state.currentUser.displayName] || this.state.currentUser.displayName.split(' ')[0]}! :D`}</h2>;
+      return <h2>{`Welcome, ${this.nicknames[this.state.currentUser.displayName] || this.state.currentUser.displayName.split(' ')[0]}!`}</h2>;
     }
-    return <h2>{`You are in the Stately ${this.state.userIsIn}! :D`}</h2>
+    return <h2>{`You are in the Stately ${this.state.userIsIn}`}</h2>
   }
 
   setUserRequest (loc) {
