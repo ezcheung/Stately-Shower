@@ -31,6 +31,7 @@ export default class Location extends React.Component {
     this.dbLoc.on('value', (locData) => {
       console.log("locdata.val: ", locData.val());
       this.notifying = !locData.val().occupied && this.notify;
+      if(this.notifying) this.notifyUser();
       this.setState({
         occupied: locData.val().occupied,
         inUser: locData.val().user,
@@ -138,8 +139,11 @@ export default class Location extends React.Component {
         document.title = titleAlert ? "(!) Stately Shower" : "Stately Shower";
         titleAlert = !titleAlert;
       }, 250);
-      let alertSound = new Audio('./assets/alert.wav');
+      //let alertSound = new Audio('./assets/alert.wav');
+      let alertSound = document.getElementById('alertSound');
+      alertSound.src = './assets/alert.wav';
       alertSound.play();
+      // alertSound.src = null;
       //alert(`Stately ${this.props.loc} is now vacant`);
       Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
       setTimeout(() => {
@@ -156,7 +160,11 @@ export default class Location extends React.Component {
       return (
         <div className="notify">
           <label>Notify me when vacant:</label>
-          <input type="checkbox" onChange={ () => { this.notify = !this.notify } }/>
+          <input type="checkbox" onChange={ () => { 
+            this.notify = !this.notify;
+            document.getElementById('alertSound').src = undefined;
+            document.getElementById('alertSound').play(); 
+          } }/>
         </div>
       )
     }
@@ -196,10 +204,11 @@ export default class Location extends React.Component {
           {this.buttonSelect()}
           {this.requestBtn()}
           {this.notifyMeSection()}
-          {this.notifyUser()}
+          <audio id="alertSound"></audio>
           {this.occupantDisplay()}
         </div>
       </div>
     )
   }
+          // {this.notifyUser()}
 }
