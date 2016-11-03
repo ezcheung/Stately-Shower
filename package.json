@@ -1,6 +1,6 @@
 {
   "name": "stately-shower",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "scripts": {
     "start": "nodemon server/server.js",
     "build": "browserify client/main.js -o client/public/bundle.js -t [ babelify --presets [es2015 react] ]",
@@ -20,12 +20,5 @@
     "react-router": "^2.8.1",
     "react-sound": "^0.5.2"
   },
-  "author": "Elliot Cheung",
-  "devDependencies": {
-    "eslint": "^3.8.1",
-    "eslint-config-airbnb": "^12.0.0",
-    "eslint-plugin-import": "^2.0.1",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.4.1"
-  }
+  "author": "Elliot Cheung"
 }
