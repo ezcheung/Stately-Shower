@@ -32,6 +32,11 @@ export default class Location extends React.Component {
       console.log("locdata.val: ", locData.val());
       this.notifying = !locData.val().occupied && this.notify;
       if(this.notifying) this.notifyUser();
+      if(locData.val().user && locData.val().user.uid === this.currentUser.uid){
+        this.props.setUserIn(this.props.loc);
+      } else {
+        this.props.setUserIn(null);
+      }
       this.setState({
         occupied: locData.val().occupied,
         inUser: locData.val().user,
@@ -57,7 +62,6 @@ export default class Location extends React.Component {
       return (
         <button className="inBtn btn" onClick={()=> {
           start(this.props.loc);
-          this.props.setUserIn(this.props.loc);
           if(this.state.requested) {
             this.props.setUserRequest(this.props.loc);
           }
