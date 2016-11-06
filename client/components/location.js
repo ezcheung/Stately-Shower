@@ -1,6 +1,6 @@
 import React from 'react';
 import Notifier from 'react-desktop-notification';
-import Loading from './loadingGif';
+import LoadingLoc from './loadingLoc';
 import {start, end, request, clearRequests, setOutOfOrder, setFixed} from '../models/DatabaseAPI.js';
 
 const maxMins = 90;
@@ -205,7 +205,7 @@ export default class Location extends React.Component {
   render() {
     if(this.state.loading) {
       return (
-        <Loading />
+        <LoadingLoc />
       )
     }
     return (

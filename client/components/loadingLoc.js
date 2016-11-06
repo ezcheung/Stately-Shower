@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Loading extends React.Component {
+export default class LoadingLoc extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -8,7 +8,7 @@ export default class Loading extends React.Component {
   render(){
     return (
       <div>
-        <img className="location" src="assets/spinner.gif"/>
+        <img className="location" src="assets/squares.svg"/>
       </div>
     )
   }
