@@ -1,5 +1,6 @@
 import React from 'react';
-import Notifier from 'react-desktop-notification'
+import Notifier from 'react-desktop-notification';
+import Loading from './loadingGif';
 import {start, end, request, clearRequests, setOutOfOrder, setFixed} from '../models/DatabaseAPI.js';
 
 const maxMins = 90;
@@ -12,6 +13,7 @@ export default class Location extends React.Component {
     let fbUser = firebase.auth().currentUser;
     this.currentUser = this.props.currUser;
     this.state = {
+      loading: true,
       location: this.props.loc,
       occupied: false,
       inUser: null,
@@ -28,6 +30,7 @@ export default class Location extends React.Component {
   }
 
   componentWillMount() {
+    this.state.loading = true;
     this.dbLoc.on('value', (locData) => {
       console.log("locdata.val: ", locData.val());
       this.notifying = !locData.val().occupied && this.notify;
@@ -42,11 +45,16 @@ export default class Location extends React.Component {
         inUser: locData.val().user,
         startTime: locData.val().startTime,
         outOfOrder: locData.val().outOfOrder,
-        requested: Boolean(locData.val().requests && locData.val().requests[this.currentUser.uid])
+        requested: Boolean(locData.val().requests && locData.val().requests[this.currentUser.uid]),
+        loading: false
       })
       console.log("This.state: ", this.state);
     })
     // this.dbLoc.child(`requests`).on('value')
+  }
+
+  componentDidMount() {
+    // this.setState({loading: false});
   }
 
   componentWillUnmount() {
@@ -195,6 +203,11 @@ export default class Location extends React.Component {
   }
 
   render() {
+    if(this.state.loading) {
+      return (
+        <Loading />
+      )
+    }
     return (
       <div className={(this.state.inUser &&
         this.state.inUser.uid !== this.currentUser.uid
