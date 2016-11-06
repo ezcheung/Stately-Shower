@@ -154,3 +154,7 @@ body{
   display: inline;
   float: right;
 }
+
+.loadingLoc {
+  max-height: 100px;
+}
