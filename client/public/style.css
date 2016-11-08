@@ -80,12 +80,12 @@ body{
 
 .location:hover{
   box-shadow: 5px 5px #CCC;
-  transition: 0.25s;
+  transition: box-shadow 0.25s;
 }
 
 .btn:hover{
-  box-shadow: 3px 3px #CCC;
-  transition: 0.25s;
+  box-shadow: 2px 3px #CCC;
+  transition: 0.1s;
 }
 
 .perLocation{
