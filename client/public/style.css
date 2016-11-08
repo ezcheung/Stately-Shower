@@ -78,6 +78,16 @@ body{
   margin-top: 10%;
 }
 
+.location:hover{
+  box-shadow: 5px 5px #CCC;
+  transition: 0.25s;
+}
+
+.btn:hover{
+  box-shadow: 3px 3px #CCC;
+  transition: 0.25s;
+}
+
 .perLocation{
   margin-left: auto;
   margin-right: auto;
