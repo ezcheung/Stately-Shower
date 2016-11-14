@@ -57,7 +57,7 @@ export function setOutOfOrder(location, username) {
   db.ref(`${location}`).once('value').then((currState) => {
     currState = currState.val();
     db.ref(`${location}`).set(Object.assign(currState, {
-      outOfOrder: username
+      outOfOrder: {setBy: username}
     }))
   })
 }
