@@ -53,11 +53,11 @@ export function clearRequests(location) {
   db.ref(`${location}/requests`).remove();
 }
 
-export function setOutOfOrder(location, username) {
+export function setOutOfOrder(location, username, comment) {
   db.ref(`${location}`).once('value').then((currState) => {
     currState = currState.val();
     db.ref(`${location}`).set(Object.assign(currState, {
-      outOfOrder: {setBy: username}
+      outOfOrder: {setBy: username, comment: comment}
     }))
   })
 }
