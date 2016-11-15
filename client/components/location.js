@@ -32,7 +32,6 @@ export default class Location extends React.Component {
   componentWillMount() {
     this.state.loading = true;
     this.dbLoc.on('value', (locData) => {
-      console.log("locdata.val: ", locData.val());
       this.notifying = !locData.val().occupied && this.notify;
       if(this.notifying) this.notifyUser();
       if(locData.val().user && locData.val().user.uid === this.currentUser.uid){
@@ -48,7 +47,7 @@ export default class Location extends React.Component {
         requested: Boolean(locData.val().requests && locData.val().requests[this.currentUser.uid]),
         loading: false
       })
-      console.log("This.state: ", this.state);
+      console.log(`${this.props.loc}.state:` , this.state);
     })
     // this.dbLoc.child(`requests`).on('value')
   }

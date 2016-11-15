@@ -99,7 +99,6 @@ export default class App extends React.Component {
 
   authenticateView(){
     var _this = this;
-    console.log("This.state.currentUser: ", this.state.currentUser);
     if(this.state.currentUser){
       return (
         <div>
