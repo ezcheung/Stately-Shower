@@ -62,7 +62,10 @@ export default class Location extends React.Component {
 
   buttonSelect() {
     if(this.state.outOfOrder && !this.state.outOfOrder.comment.length && !this.state.outOfOrder.comment.trim().length) {
-      return (<div className="outOfOrder">{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder.setBy}`}</div>)
+      return (<div className="outOfOrder">{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder.setBy}`}
+              <br/>
+              {`${this.state.outOfOrder.timestamp}`}
+              </div>)
     }
     if(this.state.outOfOrder) {
       return (<div className="outOfOrder">{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder.setBy} because: `}
