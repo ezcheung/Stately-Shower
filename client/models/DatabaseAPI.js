@@ -56,8 +56,13 @@ export function clearRequests(location) {
 export function setOutOfOrder(location, username, comment) {
   db.ref(`${location}`).once('value').then((currState) => {
     currState = currState.val();
+    let time = new Date().toString();
+    console.log("Time: ", time);
+    console.log("First slice: ", time.slice(4, 11));
+    console.log("2nd slice: ", time.slice(16, 21));
+    time = time.slice(4, 11) + time.slice(16, 21);
     db.ref(`${location}`).set(Object.assign(currState, {
-      outOfOrder: {setBy: username, comment: comment, timestamp: Date.now()}
+      outOfOrder: {setBy: username, comment: comment, timestamp: time}
     }))
   })
 }

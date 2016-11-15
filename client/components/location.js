@@ -68,7 +68,9 @@ export default class Location extends React.Component {
     if(this.state.outOfOrder) {
       return (<div className="outOfOrder">{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder.setBy} because: `}
               <br/>
-              {`   ${this.state.outOfOrder.comment.trim()}`}
+              {`"${this.state.outOfOrder.comment.trim()}"`}
+              <br/>
+              {`${this.state.outOfOrder.timestamp}`} 
               </div>)
     }
     if(!this.state.inUser && !this.props.userIsIn) {
