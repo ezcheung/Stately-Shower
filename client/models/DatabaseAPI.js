@@ -50,7 +50,15 @@ export function request(location) {
 }
 
 export function clearRequests(location) {
-  db.ref(`${location}/requests`).remove();
+  db.ref(`${location}/requests`).once('value').then(requests => {
+    requests = requests.val();
+    for(let i in requests) {
+      if(Date.now() - requests[i].requestedAt > 8 * 60 * 60 * 1000) {
+        console.log(`Clearing ${requests[i].user.name}'s Request for ${location}`);
+        db.ref(`${location}/requests/${requests[i].user.uid}`).set(null);
+      }
+    }
+  });
 }
 
 export function setOutOfOrder(location, username, comment) {

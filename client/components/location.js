@@ -23,6 +23,8 @@ export default class Location extends React.Component {
       requested: false
     }
     //setInterval(() => {console.log("State: ", this.state)}, 3000);
+    clearRequests(this.props.loc);
+    setInterval(() => {clearRequests(this.props.loc)}, 10000);
     this.notify = false;
     this.notifying = false;
     this.dbLoc = firebase.database().ref(`${this.props.loc}`);
