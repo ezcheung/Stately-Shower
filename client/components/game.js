@@ -13,10 +13,7 @@ export default class Game extends React.Component {
   }
 
   componentWillMount() {
-    this.dbLoc.on('value', (data) => {
-      data = data.val();
-
-    })
+    
   }
 
   render() {
