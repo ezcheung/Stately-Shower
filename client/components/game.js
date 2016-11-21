@@ -2,13 +2,13 @@ export default class Game extends React.Component {
 
   constructor(props) {
     super(props);
-    this.dbLoc = firebase.database().ref(`${this.props.loc}`);
     this.state = {
 
     };
-    for (let i = 0; i < this.props.locs.length; i++) {
-      this.state[this.props.locs[i]] = false;
-      this[`${this.props.locs[i]}Ref`] = firebase.database().ref(`${this.props.locs[i]}`);
+    this.locs = ["Shower", "Bath"];
+    for (let i = 0; i < this.locs.length; i++) {
+      this.state[this.locs[i]] = false;
+      this[`${this.locs[i]}Ref`] = firebase.database().ref(`${this.locs[i]}`);
     }
   }
 
