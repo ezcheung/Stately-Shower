@@ -168,7 +168,7 @@ export default class Location extends React.Component {
       alertSound.src = './assets/alert.wav';
       alertSound.play();
       // alertSound.src = null;
-      //alert(`Stately ${this.props.loc} is now vacant`);
+      alert(`Stately ${this.props.loc} is now vacant`);
       Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
       setTimeout(() => {
         document.title = "Stately Shower";
