@@ -4,6 +4,7 @@ import React from 'react';
 import { start, end, request } from '../models/DatabaseAPI';
 import Location from './location';
 import Requests from './requests';
+import LoadingLoc from './loadingLoc';
 
 export default class App extends React.Component {
 
@@ -17,6 +18,7 @@ export default class App extends React.Component {
       ],
       userIsIn: null,
       userRequested: "",
+      loading : true
     };
     this.nicknames = {
       'Laura Didymus': 'Showerymus',
@@ -30,9 +32,9 @@ export default class App extends React.Component {
     }
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ currentUser: user });
+        this.setState({ currentUser: user, loading : false });
       } else {
-        this.setState({ currentUser: null });
+        this.setState({ currentUser: null, loading : false });
       }
     });
   }
@@ -102,6 +104,9 @@ export default class App extends React.Component {
 
   authenticateView(){
     var _this = this;
+    if(this.state.loading) {
+      return <LoadingLoc/>
+    }
     if(this.state.currentUser){
       return (
         <div>
