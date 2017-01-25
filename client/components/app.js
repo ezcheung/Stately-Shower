@@ -11,7 +11,10 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       currentUser: firebase.auth().currentUser,
-      locations: ['Shower', 'Bath'],
+      locations: [
+      {name : 'Shower', maxDuration : 45}, 
+      {name: 'Bath', maxDuration : 90}
+      ],
       userIsIn: null,
       userRequested: "",
     };

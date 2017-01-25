@@ -3,7 +3,7 @@ import Notifier from 'react-desktop-notification';
 import LoadingLoc from './loadingLoc';
 import {start, end, request, clearRequests, setOutOfOrder, setFixed} from '../models/DatabaseAPI.js';
 
-const maxMins = 90;
+//const this.props.loc.maxDuration = 90;
 
 export default class Location extends React.Component {
 
@@ -14,7 +14,7 @@ export default class Location extends React.Component {
     this.currentUser = this.props.currUser;
     this.state = {
       loading: true,
-      location: this.props.loc,
+      location: this.props.loc.name,
       occupied: false,
       inUser: null,
       startTime: null,
@@ -23,11 +23,11 @@ export default class Location extends React.Component {
       requested: false
     }
     //setInterval(() => {console.log("State: ", this.state)}, 3000);
-    clearRequests(this.props.loc);
-    setInterval(() => {clearRequests(this.props.loc)}, 10000);
+    clearRequests(this.props.loc.name);
+    setInterval(() => {clearRequests(this.props.loc.name)}, 10000);
     this.notify = false;
     this.notifying = false;
-    this.dbLoc = firebase.database().ref(`${this.props.loc}`);
+    this.dbLoc = firebase.database().ref(`${this.props.loc.name}`);
     this.counter = setInterval(() => this.setState({currentTime: Date.now()}), 1000);
   }
 
@@ -37,7 +37,7 @@ export default class Location extends React.Component {
       this.notifying = !locData.val().occupied && this.notify;
       if(this.notifying) this.notifyUser();
       if(locData.val().user && locData.val().user.uid === this.currentUser.uid){
-        this.props.setUserIn(this.props.loc);
+        this.props.setUserIn(this.props.loc.name);
       } else {
         this.props.setUserIn(null);
       }
@@ -49,7 +49,7 @@ export default class Location extends React.Component {
         requested: Boolean(locData.val().requests && locData.val().requests[this.currentUser.uid]),
         loading: false
       })
-      console.log(`${this.props.loc}.state:` , this.state);
+      console.log(`${this.props.loc.name}.state:` , this.state);
     })
     // this.dbLoc.child(`requests`).on('value')
   }
@@ -64,13 +64,13 @@ export default class Location extends React.Component {
 
   buttonSelect() {
     if(this.state.outOfOrder && !this.state.outOfOrder.comment.length && !this.state.outOfOrder.comment.trim().length) {
-      return (<div className="outOfOrder">{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder.setBy}`}
+      return (<div className="outOfOrder">{`Stately ${this.props.loc.name} has been marked unavailable by ${this.state.outOfOrder.setBy}`}
               <br/>
               {`${this.state.outOfOrder.timestamp}`}
               </div>)
     }
     if(this.state.outOfOrder) {
-      return (<div className="outOfOrder">{`Stately ${this.props.loc} has been marked unavailable by ${this.state.outOfOrder.setBy} because: `}
+      return (<div className="outOfOrder">{`Stately ${this.props.loc.name} has been marked unavailable by ${this.state.outOfOrder.setBy} because: `}
               <br/>
               {`"${this.state.outOfOrder.comment.trim()}"`}
               <br/>
@@ -78,12 +78,12 @@ export default class Location extends React.Component {
               </div>)
     }
     if(!this.state.inUser && !this.props.userIsIn) {
-      // && !(this.props.userRequested.length && this.props.userRequested !== this.props.loc)
+      // && !(this.props.userRequested.length && this.props.userRequested !== this.props.loc.name)
       return (
         <button className="inBtn btn" onClick={()=> {
-          start(this.props.loc);
+          start(this.props.loc.name);
           if(this.state.requested) {
-            this.props.setUserRequest(this.props.loc);
+            this.props.setUserRequest(this.props.loc.name);
           }
         }}>
           In
@@ -94,7 +94,7 @@ export default class Location extends React.Component {
     } else if(this.state.inUser.uid === this.currentUser.uid) {
       return (
         <button className="outBtn btn" onClick={()=> {
-          end(this.props.loc);
+          end(this.props.loc.name);
           //this.props.setUserIn(null);
         }}>
           Out
@@ -107,13 +107,13 @@ export default class Location extends React.Component {
 
   requestBtn() {
     if (this.props.userIsIn) {
-      // || (this.props.userRequested.length && this.props.userRequested !== this.props.loc)
+      // || (this.props.userRequested.length && this.props.userRequested !== this.props.loc.name)
       return null;
     }
     return (
       <button className={this.state.requested ? "deReqBtn btn" : "reqBtn btn"} onClick={() => {
-        request(this.props.loc);
-        this.props.setUserRequest(this.props.loc);
+        request(this.props.loc.name);
+        this.props.setUserRequest(this.props.loc.name);
       }}>
       {this.state.requested ? "Dequeue" : "Enqueue"}</button>
       )
@@ -121,8 +121,8 @@ export default class Location extends React.Component {
 
   timeSpent() {
     let diff = this.state.currentTime - this.state.startTime;
-    if(diff >= maxMins * 60 * 1000) { //timeCap
-      end(this.props.loc)
+    if(diff >= this.props.loc.maxDuration * 60 * 1000) { //timeCap
+      end(this.props.loc.name)
       return null;
     }
     if(diff <= 0) {
@@ -156,7 +156,7 @@ export default class Location extends React.Component {
   notifyUser() {
     if (this.notifying) {
       console.log("Notifying");
-      //Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
+      //Notifier.start(`Vacancy`, `Stately ${this.props.loc.name} is now vacant`, '/', './assets/showerIcon.png');
       //this.notifying = false;
       let titleAlert = true;
       let titleOscillator = setInterval(() => {
@@ -168,8 +168,8 @@ export default class Location extends React.Component {
       alertSound.src = './assets/alert.wav';
       alertSound.play();
       // alertSound.src = null;
-      alert(`Stately ${this.props.loc} is now vacant`);
-      Notifier.start(`Vacancy`, `Stately ${this.props.loc} is now vacant`, '/', './assets/showerIcon.png');
+      alert(`Stately ${this.props.loc.name} is now vacant`);
+      Notifier.start(`Vacancy`, `Stately ${this.props.loc.name} is now vacant`, '/', './assets/showerIcon.png');
       setTimeout(() => {
         document.title = "Stately Shower";
         clearInterval(titleOscillator);
@@ -198,10 +198,10 @@ export default class Location extends React.Component {
 
   toggleOutOfOrder() {
     if(this.state.outOfOrder) {
-      setFixed(this.props.loc);
+      setFixed(this.props.loc.name);
     } else {
-      let comment = window.prompt(`Why are you marking Stately ${this.props.loc} as unavailable?`);
-      setOutOfOrder(this.props.loc, this.currentUser.displayName, comment ? comment : "");
+      let comment = window.prompt(`Why are you marking Stately ${this.props.loc.name} as unavailable?`);
+      setOutOfOrder(this.props.loc.name, this.currentUser.displayName, comment ? comment : "");
     }
   }
 
@@ -227,7 +227,7 @@ export default class Location extends React.Component {
         || this.state.outOfOrder) ?
         "unavailable location" : "location"}>
         <div className="topRow">
-          <h1>{this.props.loc}</h1>
+          <h1>{this.props.loc.name}</h1>
           {this.outOfOrderBtn()}
         </div>
         <div className="locControls">
