@@ -95,7 +95,7 @@ export default class Location extends React.Component {
       return (
         <button className="outBtn btn" onClick={()=> {
           end(this.props.loc);
-          this.props.setUserIn(null);
+          //this.props.setUserIn(null);
         }}>
           Out
         </button>
