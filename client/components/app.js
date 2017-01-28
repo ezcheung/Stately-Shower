@@ -4,7 +4,7 @@ import React from 'react';
 import { start, end, request } from '../models/DatabaseAPI';
 import Location from './location';
 import Requests from './requests';
-import LoadingLoc from './loadingLoc';
+import LoadingApp from './loadingApp';
 
 export default class App extends React.Component {
 
@@ -105,7 +105,7 @@ export default class App extends React.Component {
   authenticateView(){
     var _this = this;
     if(this.state.loading) {
-      return <LoadingLoc/>
+      return <LoadingApp/>
     }
     if(this.state.currentUser){
       return (
