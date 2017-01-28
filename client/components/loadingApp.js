@@ -8,7 +8,7 @@ export default class LoadingApp extends React.Component {
   render(){
     return (
       <div>
-        <img className="loadingApp" src="assets/squares.svg"/>
+        <img className="loading" src="assets/squares.svg"/>
       </div>
     )
   }

@@ -8,7 +8,7 @@ export default class LoadingLoc extends React.Component {
   render(){
     return (
       <div>
-        <img className="location loadingLoc" src="assets/squares.svg"/>
+        <img className="location loading" src="assets/squares.svg"/>
       </div>
     )
   }
