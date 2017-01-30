@@ -5,11 +5,13 @@ import { start, end, request } from '../models/DatabaseAPI';
 import Location from './location';
 import Requests from './requests';
 import LoadingApp from './loadingApp';
+import Alert from './alert';
 
 export default class App extends React.Component {
 
   constructor(props) {
     super(props);
+    this.alert = "The downstairs toilet (without the bath) is currently out of order";
     this.state = {
       currentUser: firebase.auth().currentUser,
       locations: [
@@ -102,8 +104,11 @@ export default class App extends React.Component {
     }
   }
 
-  authenticateView(){
-    
+  checkAlert() {
+    if(this.alert) {
+      return <Alert alert={this.alert}/>;
+    }
+    return null;
   }
 
 
@@ -118,6 +123,7 @@ export default class App extends React.Component {
         <button className="logoutBtn" onClick={this.signOut.bind(_this)}>
           Log out
         </button>
+        {this.checkAlert()}
         {this.currentlyIn()}
         {this.locations()}
         </div>
