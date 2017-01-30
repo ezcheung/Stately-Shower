@@ -14,8 +14,8 @@ export default class Alert extends React.Component {
       if(!this.state.hidden[idx]){
         return (
           <div className="alert" key={idx}>
-          <p>{msg}</p>
-          <p className="hideAlert" onClick={() => this.hideAlert(idx)}>X</p>
+          <p className="alertMsg">{msg}</p>
+          <p className="hideAlert" onClick={() => this.hideAlert(idx)}>x</p>
           </div>
         )  
       }
@@ -30,7 +30,7 @@ export default class Alert extends React.Component {
 
   render() {
     return (
-      <div className="alert">
+      <div>
         {this.messageList()}
       </div>
     )
