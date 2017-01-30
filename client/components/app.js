@@ -13,7 +13,6 @@ export default class App extends React.Component {
     super(props);
     this.alerts = [
       "The downstairs toilet (without the bath) is currently out of order",
-      "Test"
     ];
     this.state = {
       currentUser: firebase.auth().currentUser,
