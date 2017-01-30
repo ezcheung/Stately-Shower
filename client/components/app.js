@@ -11,7 +11,10 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.alert = "The downstairs toilet (without the bath) is currently out of order";
+    this.alerts = [
+      "The downstairs toilet (without the bath) is currently out of order",
+      "Test"
+    ];
     this.state = {
       currentUser: firebase.auth().currentUser,
       locations: [
@@ -105,8 +108,8 @@ export default class App extends React.Component {
   }
 
   checkAlert() {
-    if(this.alert) {
-      return <Alert alert={this.alert}/>;
+    if(this.alerts) {
+      return <Alert alerts={this.alerts}/>;
     }
     return null;
   }
