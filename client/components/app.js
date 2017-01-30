@@ -103,6 +103,11 @@ export default class App extends React.Component {
   }
 
   authenticateView(){
+    
+  }
+
+
+  render(){
     var _this = this;
     if(this.state.loading) {
       return <LoadingApp/>
@@ -125,14 +130,5 @@ export default class App extends React.Component {
       </div>
       )
     }
-  }
-
-
-  render(){
-    return (
-      <div>
-        {this.authenticateView()}
-      </div>
-    )
   }
 }
