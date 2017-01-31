@@ -107,7 +107,7 @@ export default class App extends React.Component {
   }
 
   checkAlert() {
-    if(this.alerts) {
+    if(this.alerts && this.alerts.length) {
       return <Alert alerts={this.alerts}/>;
     }
     return null;
