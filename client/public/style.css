@@ -230,3 +230,7 @@ body{
   color: red;
   margin-left: 5px;
 }
+
+#alertTitle {
+  margin-top: 0px;
+}
