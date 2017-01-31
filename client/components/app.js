@@ -125,8 +125,8 @@ export default class App extends React.Component {
         <button className="logoutBtn" onClick={this.signOut.bind(_this)}>
           Log out
         </button>
-        {this.checkAlert()}
         {this.currentlyIn()}
+        {this.checkAlert()}
         {this.locations()}
         </div>
       )
