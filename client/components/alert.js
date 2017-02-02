@@ -32,7 +32,7 @@ export default class Alert extends React.Component {
     if(Object.keys(this.state.hidden).length >= this.state.messages.length) return null;
     return (
       <div className="alert">
-        <h2 id="alertTitle">Warning!</h2>
+        <h2 id="alertTitle">!</h2>
         {this.messageList()}
       </div>
     )
