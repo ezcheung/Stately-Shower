@@ -11,5 +11,7 @@ ReactDOM.render((
   </Route>
   <Route path="/game" component={Game}>
   </Route>
+  <Route path="/plain" component={App}>
+  </Route>
   </Router>),
   document.getElementById('app'));

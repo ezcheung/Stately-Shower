@@ -11,6 +11,11 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(this.props.location.pathname);
+    if(this.props.location.pathname === "/plain") {
+      console.log("Stylesheets: ", document.styleSheets);
+      document.styleSheets[1].disabled = true;
+    }
     this.alerts = [
       
     ];
