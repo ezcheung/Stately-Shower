@@ -1,16 +1,21 @@
-// import firebase from 'firebase';
+/**
+* All the functions for interacting with the database
+*/
 
 let db = firebase.database();
 //let auth = firebase.auth();
 let user = null;
 firebase.auth().onAuthStateChanged((resp) => {
+  console.log("Resp from authentication: ", resp);
   if (resp) {
     user = {name: resp.displayName, uid: resp.uid, photoURL: resp.photoURL}
   } else {
     user = null;
   }
 });
+
 /**
+* Start a session in a location
 * @param {string} location 
 */
 
@@ -30,8 +35,12 @@ export function start(location) {
   })
 }
 
+/**
+* End a session
+* @param {string} location the name of the location
+*/
+
 export function end(location) {
-  //let current = db.ref(``) // TODO: get current shower, save stats
   db.ref(`${location}`).once('value').then((currState) => {
     currState = currState.val();
     db.ref(`${location}`).set(Object.assign(currState, {
@@ -42,13 +51,22 @@ export function end(location) {
   })
 }
 
+/**
+* Queue for a location
+*/ 
 export function request(location) {
+  console.log("User: ", user);
   let userDBLoc = db.ref(`${location}/requests/${user.uid}`);
   userDBLoc.once('value').then(requested => {
     userDBLoc.set(requested.val() ? null : {user: user, requestedAt: Date.now()});
   })
 }
 
+/**
+* Clears all requests that are > 8 hours old, run whenever a location is rendered
+* and every 10 seconds after that
+* For in case people forget to dequeue
+*/
 export function clearRequests(location) {
   db.ref(`${location}/requests`).once('value').then(requests => {
     requests = requests.val();
@@ -61,6 +79,9 @@ export function clearRequests(location) {
   });
 }
 
+/**
+* Mark a location as out of order; lists the user and their comment
+*/
 export function setOutOfOrder(location, username, comment) {
   db.ref(`${location}`).once('value').then((currState) => {
     currState = currState.val();
@@ -72,6 +93,9 @@ export function setOutOfOrder(location, username, comment) {
   })
 }
 
+/**
+* Toggle a location no longer out of order
+*/
 export function setFixed(location) {
   db.ref(`${location}`).once('value').then((currState) => {
     currState = currState.val();

@@ -1,3 +1,8 @@
+/**
+* INCOMPLETE
+* Game to play while waiting for the shower/bath to be open
+*/
+
 import React from 'react';
 
 export default class Game extends React.Component {

@@ -1,3 +1,7 @@
+/**
+* Component for each location
+*/
+
 import React from 'react';
 import Notifier from 'react-desktop-notification';
 import LoadingLoc from './loadingLoc';
@@ -22,13 +26,13 @@ export default class Location extends React.Component {
       outOfOrder: false,
       requested: false
     }
-    //setInterval(() => {console.log("State: ", this.state)}, 3000);
-    clearRequests(this.props.loc.name);
+    //setInterval(() => {console.log("State: ", this.state)}, 3000); //log state for debugging
+    clearRequests(this.props.loc.name); // Check for stale requests
     setInterval(() => {clearRequests(this.props.loc.name)}, 10000);
     this.notify = false;
     this.notifying = false;
     this.dbLoc = firebase.database().ref(`${this.props.loc.name}`);
-    this.counter = setInterval(() => this.setState({currentTime: Date.now()}), 1000);
+    this.counter = setInterval(() => this.setState({currentTime: Date.now()}), 1000); //timer
   }
 
   componentWillMount() {
@@ -62,13 +66,16 @@ export default class Location extends React.Component {
     clearInterval(this.counter);
   }
 
+  // Logic for determining which buttons to render based on state of location
   buttonSelect() {
+    // Marked out of order, no comment
     if(this.state.outOfOrder && !this.state.outOfOrder.comment.length && !this.state.outOfOrder.comment.trim().length) {
       return (<div className="outOfOrder">{`Stately ${this.props.loc.name} has been marked unavailable by ${this.state.outOfOrder.setBy}`}
               <br/>
               {`${this.state.outOfOrder.timestamp}`}
               </div>)
     }
+    // Marked out of order with comment
     if(this.state.outOfOrder) {
       return (<div className="outOfOrder">{`Stately ${this.props.loc.name} has been marked unavailable by ${this.state.outOfOrder.setBy} because: `}
               <br/>
@@ -77,6 +84,7 @@ export default class Location extends React.Component {
               {`${this.state.outOfOrder.timestamp}`} 
               </div>)
     }
+    // Location vacant, user not in anywhere
     if(!this.state.inUser && !this.props.userIsIn) {
       // && !(this.props.userRequested.length && this.props.userRequested !== this.props.loc.name)
       return (
@@ -90,7 +98,7 @@ export default class Location extends React.Component {
         </button>
       );
     } else if (!this.state.inUser) {
-      return null;
+      return null; //User's in somewhere else, don't let them enter this
     } else if(this.state.inUser.uid === this.currentUser.uid) {
       return (
         <button className="outBtn btn" onClick={()=> {
@@ -105,6 +113,7 @@ export default class Location extends React.Component {
     }
   }
 
+  // Logic for the queueing button
   requestBtn() {
     if (this.props.userIsIn) {
       // || (this.props.userRequested.length && this.props.userRequested !== this.props.loc.name)
@@ -119,6 +128,7 @@ export default class Location extends React.Component {
       )
   }
 
+  // Calculate time of current session
   timeSpent() {
     let diff = this.state.currentTime - this.state.startTime;
     if(diff >= this.props.loc.maxDuration * 60 * 1000) { //timeCap
@@ -137,6 +147,7 @@ export default class Location extends React.Component {
     return `${mins}:${secs}`;
   }
 
+  // Find who's in the location
   occupantDisplay() {
     if(!this.state.inUser) {
       return null;
@@ -153,6 +164,7 @@ export default class Location extends React.Component {
     );
   }
 
+  // For notifications
   notifyUser() {
     if (this.notifying) {
       console.log("Notifying");
@@ -179,6 +191,7 @@ export default class Location extends React.Component {
     return null;
   }
 
+  // Checkbox to select if you want notifications
   notifyMeSection() {
     if (this.state.inUser && this.state.inUser.uid !== this.currentUser.uid) {
       return (
@@ -196,6 +209,7 @@ export default class Location extends React.Component {
     return null;
   }
 
+  // Run when out of order button is pressed
   toggleOutOfOrder() {
     if(this.state.outOfOrder) {
       setFixed(this.props.loc.name);

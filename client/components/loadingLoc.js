@@ -1,3 +1,7 @@
+/**
+* Loading a location
+*/
+
 import React from 'react';
 
 export default class LoadingLoc extends React.Component {

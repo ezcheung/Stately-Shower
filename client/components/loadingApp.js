@@ -1,3 +1,7 @@
+/**
+* Loading gif
+*/
+
 import React from 'react';
 
 export default class LoadingApp extends React.Component {

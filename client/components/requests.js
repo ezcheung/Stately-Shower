@@ -1,3 +1,8 @@
+/**
+* The queue for a location
+* POSSIBLE REFACTOR: Make part of the location component
+*/
+
 import React from 'react';
 import {request, clearRequests} from '../models/DatabaseAPI';
 
@@ -19,6 +24,9 @@ export default class Requests extends React.Component {
     })
   }
 
+  /**
+  * Use FB prof pics in queue
+  */
   portraits() {
     if(!this.state.queue) {
       return;

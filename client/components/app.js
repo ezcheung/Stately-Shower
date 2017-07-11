@@ -1,3 +1,7 @@
+/**
+* The head component
+*/
+
 import React from 'react';
 //  import firebase from 'firebase';
 
@@ -11,11 +15,11 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(this.props.location.pathname);
+    // Disable style sheets (Windows Phones didn't like my buttons)
     if(this.props.location.pathname === "/plain") {
-      console.log("Stylesheets: ", document.styleSheets);
       document.styleSheets[1].disabled = true;
     }
+    // Put any alert messages here as strings
     this.alerts = [
       
     ];
@@ -29,6 +33,7 @@ export default class App extends React.Component {
       userRequested: "",
       loading : true
     };
+    // Nicknames for people in the house, just for fun
     this.nicknames = {
       'Laura Didymus': 'Showerymus',
       'Darcy Evans': 'Towl! :D',
@@ -52,8 +57,9 @@ export default class App extends React.Component {
 
   }
 
+  // Login
   authenticate() {
-    const _this = this;
+    const _this = this; //To avoid issues with 'this'
     const provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(provider)
     .then((result) => {
@@ -72,6 +78,7 @@ export default class App extends React.Component {
     })
   }
 
+  // Render list of locations
   locations(){
     let locs = [];
     for(let i = 0; i < this.state.locations.length; i++) {
@@ -91,6 +98,7 @@ export default class App extends React.Component {
     this.setState({userIsIn: userIn});
   }
 
+  // Render message at top
   currentlyIn () {
     if (!this.state.userIsIn) {
       // return <h2>{`Welcome, ${this.nicknames[this.state.currentUser.displayName] || this.state.currentUser.displayName.split(' ')[0]}!`}</h2>;
@@ -99,6 +107,7 @@ export default class App extends React.Component {
     return <h2>{`You are in the Stately ${this.state.userIsIn}`}</h2>
   }
 
+  // Only allow a user to queue for one location at a time
   setUserRequest (loc) {
     if (this.state.userRequested === loc) {
       this.setState({
@@ -111,6 +120,7 @@ export default class App extends React.Component {
     }
   }
 
+  // Any alerts?
   checkAlert() {
     if(this.alerts && this.alerts.length) {
       return <Alert alerts={this.alerts}/>;
@@ -118,12 +128,12 @@ export default class App extends React.Component {
     return null;
   }
 
-
   render(){
     var _this = this;
     if(this.state.loading) {
       return <LoadingApp/>
     }
+    // Logged in
     if(this.state.currentUser){
       return (
         <div>

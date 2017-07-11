@@ -1,3 +1,7 @@
+/**
+* Class for any alert messages for the house (e.g. 'don't' use x, something in the kitchen is broken)
+*/
+
 import React from 'react';
 
 export default class Alert extends React.Component {
@@ -23,12 +27,17 @@ export default class Alert extends React.Component {
     })
   }
 
+  /**
+  * Hide alert
+  */
+  
   hideAlert(index) {
     this.state.hidden[index] = true;
     this.forceUpdate();
   }
 
   render() {
+    // Don't render if there are no alerts
     if(Object.keys(this.state.hidden).length >= this.state.messages.length) return null;
     return (
       <div className="alert">
